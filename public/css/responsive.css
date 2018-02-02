@@ -1,0 +1,55 @@
+/*  lg */
+@media (min-width: 1200px) {
+}
+/* md */
+
+@media (min-width: 992px) {}
+
+@media (min-width: 768px) {
+    .mobileonly {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 768px) {}
+
+@media (min-width: 992px) and (max-width: 1199px) {}
+
+
+/* sm */
+
+@media (min-width: 768px) and (max-width: 991px) {}
+
+
+/* xs */
+
+@media (max-width: 767px) {
+    .desktoponly {
+        display: none;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu>li>a {
+        color: #ffffff;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu>li>a:focus {
+        color: #ffffff;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu>.active>a,
+    .navbar-default .navbar-nav .open .dropdown-menu>.active>a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu>.active>a:focus {
+        color: #ffffff;
+        background-color: #0572ce;
+    }
+}
+
+@media (max-width: 414px) {}
+
+
+/* Ipad*/
+
+@media (width: 768px) and (height: 1024px) {}
+
+
+/* Ipad pro*/
+
+@media (width:1024px) and (height: 1366px) {}
