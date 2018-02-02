@@ -51,8 +51,8 @@
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            {{--  <li><a href="{{ route('categories.index')}}" ><i class="fa fa-fw fa-cubes"></i> Kategori Produk</a></li>
-                            <li><a href="{{ route('products.index') }}"><i class="fa fa-fw fa-cube"></i> Produk</a></li>  --}}
+                            <li><a href="{{ route('categories.index')}}" ><i class="fa fa-fw fa-cubes"></i> Kategori Produk</a></li>
+                            {{--  <li><a href="{{ route('products.index') }}"><i class="fa fa-fw fa-cube"></i> Produk</a></li>  --}}
                 @if(Auth::user()->userlevel ==   'ADMIN')
                             <li><a href="#"><i class="fa fa-fw fa-users"></i> Manajemen User</a></li>
                 @endif

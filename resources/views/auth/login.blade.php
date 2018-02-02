@@ -16,11 +16,11 @@
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <div class="col-md-12">
                                 <label for="email" class="control-label">
-                                    <i class="fa fa-fw fa-user"></i> Username / Email
+                                    <i class="fa fa-fw fa-user"></i> Username
                                 </label>
                             </div>
                             <div class="col-md-12">
-                                <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="Username / Email" required autofocus>
+                                <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="Username" required autofocus>
                                 @if ($errors->has('username'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>

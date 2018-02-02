@@ -1,0 +1,9 @@
+table thead tr th{
+    text-align: center !important;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+table tbody tr td {
+    vertical-align: bottom;
+}
