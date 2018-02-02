@@ -27,8 +27,8 @@
                         <tr>
                             <th>No</th>
                             <th>Nama Kategori</th>
-                            <th>Di Buat</th>
-                            <th>Di Perbarui</th>
+                            <th>Di Buat oleh</th>
+                            <th>Di Perbarui oleh</th>
                             <th>Tanggal Buat</th>
                             <th>Tanggal Update</th>
                             <th>Aksi</th>
@@ -40,10 +40,18 @@
                         <tr>
                             <td class="text-center">{{$no++}}</td>
                             <td class="text-justify">{{$category->category_name}}</td>
-                            <td class="text-center">{{$category->created_by}}</td>
-                            <td class="text-center">{{$category->updated_by}}</td>
-                            <td class="text-center">{{$category->created_at}}</td>
-                            <td class="text-center">{{$category->updated_at}}</td>
+                            @if($category->creator!=null)
+                            <td class="text-center">{{$category->creator->username}}</td>
+                            @else
+                            <td class="text-center">-</td>
+                            @endif
+                            @if($category->updater!=null)
+                            <td class="text-center">{{$category->updater->username}}</td>
+                            @else
+                            <td class="text-center">-</td>
+                            @endif
+                            <td class="text-center">{{date('H:i:s d-m-Y', strtotime($category->created_at))}}</td>
+                            <td class="text-center">{{date('H:i:s d-m-Y', strtotime($category->updated_at))}}</td>
                             <td class="text-center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <form action="{{ route('categories.destroy', $category->id) }}" method="post">

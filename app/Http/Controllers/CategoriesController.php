@@ -18,7 +18,10 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = categories::orderBy('id')->paginate(10);
-        // dd($categories);
+        // // dd($categories->username);
+        // foreach($categories as $cat){
+        //     dd($cat->username); //berarrti salah di relationshipo nya wkwk
+        // }
         return view('categories.index',compact('categories'));
     }
 
@@ -41,7 +44,7 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'category_name' => 'required|min:3|max:25'
+            'category_name' => 'required|min:3|max:25|unique:categories'
         ]);
         // $article = Article::create($request->all());
         // $categories = categories::create($request->all());
@@ -86,10 +89,18 @@ class CategoriesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'category_name' => 'required|min:3'
+            'category_name' => 'required|min:3|unique:categories'
         ]);
 
-        $categories = categories::findOrFail($id)->update($request->all());
+        
+        $categories = Categories::findOrFail($id);
+        $categories-> category_name =$request->category_name;
+        $categories-> updated_by = Auth::user()->id;
+        $categories-> save();
+        
+        // $categories = categories::findOrFail($id)->update($request->all());
+        // $categories-> updated_by = Auth::user()->id;
+        // $categories-> save();
 
         return redirect()->route('categories.index')->with('message', 'Data berhasil diubah !');
     }
