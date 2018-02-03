@@ -43,8 +43,8 @@
                         <label class="control-label col-md-2" for="userlevel">Userlevel :</label>
                         <div class="col-md-6">                            
                             <select class="form-control" id="userlevel" name="userlevel" autofocus required>
-                                    <option value="1">Admin</option>
-                                    <option value="2">Pegawai</option>
+                                    <option value="1" {{ old('userlevel', $users->userlevel) == 'admin' ? 'selected' : '' }}>Admin</option>
+                                    <option value="2" {{ old('userlevel', $users->userlevel) == 'pegawai' ? 'selected' : '' }}>Pegawai</option>
                             </select>
                         </div>
                     </div>
