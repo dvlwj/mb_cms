@@ -28,7 +28,7 @@ class login
 						if (q[0] === true) {
 							toastr.error("Anda sudah login");
 							// alert("You have been logged in!");
-							window.location = "/";
+							window.location = "/home";
 						}
 					} catch (e) {
 						toastr.info(e.message);

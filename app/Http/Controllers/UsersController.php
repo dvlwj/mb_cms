@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Categories;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Auth;
 
-
-class CategoriesController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,12 +17,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = categories::orderBy('id')->paginate(5);
-        // // dd($categories->username);
-        // foreach($categories as $cat){
-        //     dd($cat->username); //berarrti salah di relationshipo nya wkwk
-        // }
-        return view('categories.index',compact('categories'));
+        $users = user::orderBy('id')->paginate(5);
+        return view('users.index',compact('users'));
     }
 
     /**
@@ -32,7 +28,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        return view('users.create');
     }
 
     /**
@@ -44,15 +40,23 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'category_name' => 'required|min:3|max:25|unique:categories'
+            'name' => 'required|min:3|max:25|unique:users',
+            'username' => 'required|min:3|max:25|unique:users',
+            'userlevel' => 'required',
+            'email' => 'required|max:25|unique:users',
+            'password' => 'required|min:3',
         ]);
         // $article = Article::create($request->all());
         // $categories = categories::create($request->all());
-        $categories = new Categories;
-        $categories-> category_name =$request->category_name;
-        $categories-> created_by = Auth::user()->id;
-        $categories-> save();
-        return redirect()->route('categories.index')->with('message','Data berhasil ditambahkan !');
+        $users = new User;
+        $users-> name =$request->name;
+        $users-> username =$request->username;
+        $users-> userlevel =$request->userlevel;
+        $users-> email =$request->email;
+        $users-> password =Hash::make($request->password);
+        $users-> created_by = Auth::user()->id;
+        $users-> save();
+        return redirect()->route('users.index')->with('message','Data berhasil ditambahkan !');
     }
 
     /**
@@ -75,8 +79,8 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        $categories = categories::findOrFail($id);
-        return view('categories.edit', compact('categories'));
+        $users = User::findOrFail($id);
+        return view('users.edit', compact('users'));
     }
 
     /**
@@ -89,20 +93,26 @@ class CategoriesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'category_name' => 'required|min:3|unique:categories'
+            // 'name' => 'required|min:3|max:25|unique:users',
+            // 'username' => 'required|min:3|max:25|unique:users',
+            'userlevel' => 'required',
+            // 'email' => 'required|max:25|unique:users',
+            // 'password' => 'required|min:3',
         ]);
 
-        
-        $categories = Categories::findOrFail($id);
-        $categories-> category_name =$request->category_name;
-        $categories-> updated_by = Auth::user()->id;
-        $categories-> save();
-        
+        $users = User::findOrFail($id);
+        // $users-> name =$request->name;
+        // $users-> username =$request->username;
+        $users-> userlevel =$request->userlevel;
+        // $users-> email =$request->email;
+        // $users-> password =Hash::make($request->password);
+        $users-> updated_by = Auth::user()->id;
+        $users-> save();        
         // $categories = categories::findOrFail($id)->update($request->all());
         // $categories-> updated_by = Auth::user()->id;
         // $categories-> save();
 
-        return redirect()->route('categories.index')->with('message', 'Data berhasil diubah !');
+        return redirect()->route('users.index')->with('message', 'Data berhasil diubah !');
     }
 
     /**
@@ -113,7 +123,7 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $categories = categories::findOrFail($id)->delete();
-        return redirect()->route('categories.index')->with('message', 'Data berhasil dihapus !');
+        $users = User::findOrFail($id)->delete();
+        return redirect()->route('users.index')->with('message', 'Data berhasil dihapus !');
     }
 }

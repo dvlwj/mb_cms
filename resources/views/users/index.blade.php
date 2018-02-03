@@ -8,8 +8,7 @@
                 <a href="{{url('/home')}}">Home</a>
             </li>
             <li class="active">
-                <!-- <a href="{{route('categories.index')}}">Categories</a> -->
-                Kategori Produk
+                Manajemen User
             </li>
         </ol>
         @if ($message = Session::get('message'))
@@ -27,7 +26,10 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama Kategori</th>
+                            <th>Nama</th>
+                            <th>Username</th>
+                            <th>Userlevel</th>
+                            <th>Email</th>
                             <th>Di Buat oleh</th>
                             <th>Di Perbarui oleh</th>
                             <th>Tanggal Buat</th>
@@ -37,28 +39,31 @@
                     </thead>
                     <tbody>
                         <?php $no=1; ?>
-                        @foreach($categories as $category)
+                        @foreach($users as $user)
                         <tr>
                             <td class="text-center">{{$no++}}</td>
-                            <td class="text-justify">{{$category->category_name}}</td>
-                            @if($category->creator!=null)
-                            <td class="text-center">{{$category->creator->username}}</td>
+                            <td class="text-justify">{{$user->name}}</td>
+                            <td class="text-center">{{$user->username}}</td>
+                            <td class="text-center">{{$user->userlevel}}</td>
+                            <td class="text-center">{{$user->email}}</td>
+                            @if($user->creator!=null)
+                            <td class="text-center">{{$user->creator->username}}</td>
                             @else
                             <td class="text-center">-</td>
                             @endif
-                            @if($category->updater!=null)
-                            <td class="text-center">{{$category->updater->username}}</td>
+                            @if($user->updater!=null)
+                            <td class="text-center">{{$user->updater->username}}</td>
                             @else
                             <td class="text-center">-</td>
                             @endif
-                            <td class="text-center">{{date('H:i:s d-m-Y', strtotime($category->created_at))}}</td>
-                            <td class="text-center">{{date('H:i:s d-m-Y', strtotime($category->updated_at))}}</td>
+                            <td class="text-center">{{date('H:i:s d-m-Y', strtotime($user->created_at))}}</td>
+                            <td class="text-center">{{date('H:i:s d-m-Y', strtotime($user->updated_at))}}</td>
                             <td class="text-center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <form action="{{ route('categories.destroy', $category->id) }}" method="post">
+                                    <form action="{{ route('users.destroy', $user->id) }}" method="post">
                                         {{csrf_field()}}
                                         {{ method_field('DELETE') }}
-                                        <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-faw fa-pencil"></i></a>
+                                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-faw fa-pencil"></i></a>
                                         <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
                                     </form>
                                 </div>
@@ -72,12 +77,12 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-6 text-left">
-                            <a href="{{route('categories.create')}}" class="pagination btn btn-primary">
+                            <a href="{{route('users.create')}}" class="pagination btn btn-primary">
                                 <i class="fa fa-fw fa-plus"></i>Tambah Data
                             </a>
                         </div>
                         <div class="col-md-6 text-right">
-                            {{$categories->links()}}
+                            {{$users->links()}}
                         </div>
                     </div>
                 </div>
