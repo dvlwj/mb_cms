@@ -48,7 +48,7 @@
                         @foreach($products as $product)
                         <tr>
                             <td class="text-center">{{$no++}}</td>
-                            <td class="text-center">{{$product->categorier->category_name}}</td>
+                            <td class="text-center"></td>
                             <td class="text-center">{{$product->product_code}}</td>
                             <td class="text-center">{{$product->product_name}}</td>
                             <td class="text-center">{{$product->description}}</td>
