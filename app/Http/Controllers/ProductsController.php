@@ -63,21 +63,15 @@ class ProductsController extends Controller
         $products->weight = $request->weight;
         $products->unit =$request->unit;
         $products->created_by = Auth::user()->id;
-
-
         $dir = \Config::get('constants.product_upload');
         if ($request->file('picture')) {
             $img = \Image::make($_FILES['picture']['tmp_name']);
             $path = [];
-
-
             $time = \Carbon::now()->format('YmdHis');
             $path[] = $dir.$time.'-'.$request->file('picture')->getClientOriginalName();
             \Storage::put($path[0], $img->stream()->__toString(), 'public');
-
             $products->picture = $time.'-'.$request->file('picture')-> getClientOriginalName();
         }
-
         $products->save();
         return redirect()->route('products.index')->with('message','Data berhasil ditambahkan !');
     }

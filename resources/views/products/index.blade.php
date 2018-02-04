@@ -48,7 +48,7 @@
                         @foreach($products as $product)
                         <tr>
                             <td class="text-center">{{$no++}}</td>
-                            <td class="text-justify">{{$product->category_id}}</td>
+                            <td class="text-center">{{$product->categorier->category_name}}</td>
                             <td class="text-center">{{$product->product_code}}</td>
                             <td class="text-center">{{$product->product_name}}</td>
                             <td class="text-center">{{$product->description}}</td>
@@ -59,14 +59,19 @@
                             <td class="text-center">{{$product->unit}}</td>
                             @if(isset($user) && !is_null($user))
                             <td class="text-center">{{$product->creator->username}}</td>
-                            <td class="text-center">{{$product->updater->username}}</td>
                             @else
                             <td class="text-center">-</td>
+                            @endif
+                            @if(isset($user) && !is_null($user))
+                            <td class="text-center">{{$product->updater->username}}</td>
+                            @else
                             <td class="text-center">-</td>
                             @endif
                             <td class="text-center">{{date('H:i:s d-m-Y', strtotime($product->created_at))}}</td>
                             <td class="text-center">{{date('H:i:s d-m-Y', strtotime($product->updated_at))}}</td>
-                            <td class="text-center">{{$product->picture}}</td>
+                            <td class="text-center">
+                                <img src="storage\app\public\assets\uploads\{{$product->picture}}" class="img-responsive" alt="Image">
+                            </td>
                             <td class="text-center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <form action="{{ route('products.destroy', $product->id) }}" method="post">

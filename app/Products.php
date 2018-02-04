@@ -12,9 +12,9 @@ class Products extends Model
         'product_code', 'product_name', 'picture', 'description', 'price', 'width', 'height', 'weight', 'unit',
     ];
 
-    public function category()
+    public function categorier()
     {
-        return $this->belongsTo('App\Categories','Category');
+        return $this->belongsTo('App\Categories','category');
     }
 
     public function creator()
