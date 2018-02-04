@@ -70,7 +70,7 @@
                             <td class="text-center">{{date('H:i:s d-m-Y', strtotime($product->created_at))}}</td>
                             <td class="text-center">{{date('H:i:s d-m-Y', strtotime($product->updated_at))}}</td>
                             <td class="text-center">
-                                <img src="storage\app\public\assets\uploads\{{$product->picture}}" class="img-responsive" alt="Image">
+                                <img src="{{ Storage::url('/assets/uploads/').$product->picture }}" class="img-responsive" alt="image"></img>
                             </td>
                             <td class="text-center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
