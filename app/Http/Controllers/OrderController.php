@@ -40,12 +40,12 @@ class OrderController extends Controller
     //     return view('kategori', compact('kategori'));
     // }
 
-    public function JSONProduct()
-    {
-        $categories = Input::get('category_id');
-        $product = Product::where('product_id', '=', $categories)->get();
-        return response()->json($product);
-    }
+    // public function JSONProduct()
+    // {
+    //     $categories = Input::get('category_id');
+    //     $product = Product::where('product_id', '=', $categories)->get();
+    //     return response()->json($product);
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -66,20 +66,20 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|min:3|max:25|unique:users',
-            'username' => 'required|min:3|max:25|unique:users',
-            'userlevel' => 'required',
-            'email' => 'required|max:25|unique:users',
-            'password' => 'required|min:3',
+            'buyer_name' => 'required|min:3|max:25',
+            'buyer_address' => 'required',
+            'buyer_phone' => 'required',
         ]);
-        // $article = Article::create($request->all());
-        // $categories = categories::create($request->all());
-        $users = new User;
-        $users-> name =$request->name;
-        $users-> username =$request->username;
-        $users-> userlevel =$request->userlevel;
+        $products = Products::all();
+        $categories = Categories::all();
+        $order = new Order;
+        $order-> buyer_name =$request->buyer_name;
+        $order-> buyer_address =$request->buyer_address;
+        $order-> buyer_phone =$request->buyer_phone;
         $users-> email =$request->email;
-        $users-> password =Hash::make($request->password);
+        foreach ($categories as $category){
+        //    $order->{{$category->id}}/produk = $request->{{}}
+        };
         $users-> created_by = Auth::user()->id;
         $users-> save();
         return redirect()->route('order.index')->with('message','Data berhasil ditambahkan !');

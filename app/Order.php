@@ -7,7 +7,7 @@ use User;
 
 class Order extends Model
 {
-    protected $fillable = ['category_name'];
+    protected $fillable = ['buyer_name','buyer_address','buyer_phone'];
 
     // $user_id = Auth::user()->id;
     // $branch = Branch::where('user_id', '=', $user_id)->first();
