@@ -19,10 +19,22 @@ Route::get('/home', function () {
     return redirect('/');
 })->name('home');
 
+Route::group(['prefix'],function(){
+	Route::resource('order','OrderController');
+	Route::get('check_order','OrderController@check')->name('check_order');
+	Route::post('process_check_order/{purchace_order_code}','OrderController@process_check')->name('process_check_order');
+});
+// Route::get('order','OrderController@index')->name('order');
+// Route::get('check_order','OrderController@check')->name('check_order');
+// Route::get('check_order.get','OrderController@check')->name('check_order');
+
 Route::group(['prefix' => 'admin','middleware' => 'auth'],function() {
 	Route::resource('categories', 'CategoriesController');
-	Route::resource('users', 'UsersController');
 	Route::resource('products', 'ProductsController');
+	Route::resource('users', 'UsersController');
+});
+
+Route::group(['prefix' => 'admin','middleware' => 'admin'],function() {
 });
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

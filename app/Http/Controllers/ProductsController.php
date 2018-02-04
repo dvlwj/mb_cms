@@ -47,12 +47,12 @@ class ProductsController extends Controller
     {
         $this->validate($request, [
             'category_id' => 'required',
-            'product_code' => 'required|min:3|max:10|unique:products',
-            'product_name' => 'required|min:3|unique:products',
-            'price' => 'required|min:3|max:10',
-            'width' => 'min:3|max:6',
-            'height' => 'min:3|max:6',
-            'weight' => 'min:3|max:6',
+            'product_code' => 'required|min:1|max:10|unique:products',
+            'product_name' => 'required|min:1|unique:products',
+            'price' => 'required|min:1|max:10',
+            'width' => 'min:1|max:6',
+            'height' => 'min:1|max:6',
+            'weight' => 'min:1|max:6',
             'unit' => 'required|min:3|max:10',
         ]);
         $products = new Products;
@@ -117,12 +117,12 @@ class ProductsController extends Controller
     {
         $this->validate($request, [
             'category_id' => 'required',
-            'product_code' => 'required|min:3|max:10',
-            'product_name' => 'required|min:3',
-            'price' => 'required|min:3|max:10',
-            'width' => 'min:3|max:6',
-            'height' => 'min:3|max:6',
-            'weight' => 'min:3|max:6',
+            'product_code' => 'required|min:1|max:10',
+            'product_name' => 'required|min:1',
+            'price' => 'required|min:1|max:10',
+            'width' => 'min:1|max:6',
+            'height' => 'min:1|max:6',
+            'weight' => 'min:1|max:6',
             'unit' => 'required|min:3|max:10',
         ]);
         $products = products::findOrFail($id);

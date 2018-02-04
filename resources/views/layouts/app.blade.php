@@ -37,8 +37,14 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                 @guest
-                    <li class="btn-pesan">
-                        <a href="" class="btn"><i class="fa fa-fw fa-truck"></i> Pesan</a>                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <i class="fa fa-fw fa-bars"></i> Menu
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{route('order.index')}}"><i class="fa fa-fw fa-truck"></i> Pesan</a></li>
+                            <li><a href="{{route('check_order')}}"><i class="fa fa-fw fa-search"></i> Cek Pesanan</a></li>
+                        </ul>
                     </li>
                 @else
                     <li class="dropdown">
@@ -51,10 +57,10 @@
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ route('categories.index')}}" ><i class="fa fa-fw fa-cubes"></i> Kategori Produk</a></li>
+                            <li><a href="{{ route('categories.index')}}"><i class="fa fa-fw fa-cubes"></i> Kategori Produk</a></li>
                             <li><a href="{{ route('products.index') }}"><i class="fa fa-fw fa-cube"></i> Produk</a></li>
-                            @if(Auth::user()->userlevel ==   'admin')
-                            <li><a href="{{ route('users.index')}}" ><i class="fa fa-fw fa-users"></i> Manajemen User</a></li>
+                            @if(Auth::user()->userlevel == 'admin')
+                            <li><a href="{{ route('users.index')}}"><i class="fa fa-fw fa-users"></i> Manajemen User</a></li>
                             @endif
                             <li>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault();toastr.warning('Logout success!');document.getElementById('logout-form').submit();">

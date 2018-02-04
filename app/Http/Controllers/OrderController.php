@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Auth;
+use App\Categories;
+use App\Products;
 
-class UsersController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +15,24 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = user::orderBy('id')->paginate(5);
-        return view('users.index',compact('users'));
+        $categories = Categories::get();
+        $products = Products::get();
+        // dd($order);
+        return view('order.index',[
+            'categories' => $categories,
+            'products' => $products
+        ]);
+    }
+
+    public function check()
+    {
+        return view('order.check');
+    }
+
+    public function process_check($purchase_order_code)
+    {
+        $order = transaction::findOrFail($purchase_order_code);
+        return redirect()->route('order.check_result')->with('message', 'Data Pesanan Anda');
     }
 
     /**
@@ -28,7 +42,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        return view('order.create');
     }
 
     /**
@@ -56,7 +70,7 @@ class UsersController extends Controller
         $users-> password =Hash::make($request->password);
         $users-> created_by = Auth::user()->id;
         $users-> save();
-        return redirect()->route('users.index')->with('message','Data berhasil ditambahkan !');
+        return redirect()->route('order.index')->with('message','Data berhasil ditambahkan !');
     }
 
     /**
@@ -67,8 +81,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        // $categories = categories::findOrFail($id);
-        // return view('categories.show',compact('categories'));
+        // return view('order.check');
     }
 
     /**
@@ -79,8 +92,6 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $users = User::findOrFail($id);
-        return view('users.edit', compact('users'));
     }
 
     /**
@@ -92,29 +103,6 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            // 'name' => 'required|min:3|max:25|unique:users',
-            // 'username' => 'required|min:3|max:25|unique:users',
-            'userlevel' => 'required',
-            // 'email' => 'required|max:25|unique:users',
-            // 'password' => 'min:3',
-        ]);
-
-        $users = User::findOrFail($id);
-        $users-> userlevel =$request->userlevel;
-        if($request->password !== null) {
-            $users-> password =Hash::make($request->password);
-        };
-        $users-> updated_by = Auth::user()->id;
-        $users-> save();        
-        // $users-> name =$request->name;
-        // $users-> username =$request->username;
-        // $users-> email =$request->email;
-        // $categories = categories::findOrFail($id)->update($request->all());
-        // $categories-> updated_by = Auth::user()->id;
-        // $categories-> save();
-
-        return redirect()->route('users.index')->with('message', 'Data berhasil diubah !');
     }
 
     /**
@@ -125,7 +113,5 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $users = User::findOrFail($id)->delete();
-        return redirect()->route('users.index')->with('message', 'Data berhasil dihapus !');
     }
 }
