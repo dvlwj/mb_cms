@@ -57,14 +57,11 @@
                             <td class="text-center">{{$product->height}}</td>
                             <td class="text-center">{{$product->weight}}</td>
                             <td class="text-center">{{$product->unit}}</td>
-                            @if($user->creator!=null)
+                            @if(isset($user) && !is_null($user))
                             <td class="text-center">{{$product->creator->username}}</td>
-                            @else
-                            <td class="text-center">-</td>
-                            @endif
-                            @if($user->updater!=null)
                             <td class="text-center">{{$product->updater->username}}</td>
                             @else
+                            <td class="text-center">-</td>
                             <td class="text-center">-</td>
                             @endif
                             <td class="text-center">{{date('H:i:s d-m-Y', strtotime($product->created_at))}}</td>

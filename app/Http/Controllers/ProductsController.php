@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Products;
 use App\Categories;
+use App\User;
+
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;;
+use Illuminate\Http\Request;
+
 use Auth;
 
 class ProductsController extends Controller
@@ -27,8 +30,11 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('products.create',compact('products'));
+    {   
+        $categories = Categories::get();
+        return view('products.create',[
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -47,18 +53,32 @@ class ProductsController extends Controller
             'unit' => 'required',
         ]);
         $products = new Products;
-        $products-> category_id = $request->category_id;
-        $products-> product_code = $request->product_code;
-        $products-> product_name = $request->product_name;
-        $products-> picture = $request->picture;
-        $products-> description = $request->description;
-        $products-> price = $request->price;
-        $products-> width = $request->width;
-        $products-> height = $request->height;
-        $products-> weight = $request->weight;
-        $products-> unit =$request->unit;
-        $products-> created_by = Auth::user()->id;
-        $products-> save();
+        $products->category_id = $request->category_id;
+        $products->product_code = $request->product_code;
+        $products->product_name = $request->product_name;
+        $products->description = $request->description;
+        $products->price = $request->price;
+        $products->width = $request->width;
+        $products->height = $request->height;
+        $products->weight = $request->weight;
+        $products->unit =$request->unit;
+        $products->created_by = Auth::user()->id;
+
+
+        $dir = \Config::get('constants.product_upload');
+        if ($request->file('picture')) {
+            $img = \Image::make($_FILES['picture']['tmp_name']);
+            $path = [];
+
+
+            $time = \Carbon::now()->format('YmdHis');
+            $path[] = $dir.$time.'-'.$request->file('picture')->getClientOriginalName();
+            \Storage::put($path[0], $img->stream()->__toString(), 'public');
+
+            $products->picture = $time.'-'.$request->file('picture')-> getClientOriginalName();
+        }
+
+        $products->save();
         return redirect()->route('products.index')->with('message','Data berhasil ditambahkan !');
     }
 

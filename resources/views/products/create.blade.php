@@ -23,19 +23,19 @@
                 @endif
                 Tambah User
             </div>
-            <form class="form-horizontal" action="{{ route('products.store') }}" method="post">
+            <form class="form-horizontal" action="{{ route('products.store') }}" method="post" enctype="multipart/form-data" >
                 <div class="panel-body">
                     {{ csrf_field() }}
                     <div class="form-group {{ $errors->has('category_id') ? 'has-error' : '' }}">
                         <label class="control-label col-md-2" for="category_id">Kategori :</label>
                         <div class="col-md-6">
                             <select class="form-control" id="category_id" name="category_id" required>
-                                {{dd($products)}}
-                                @foreach ($products as $product)
-                                <option value="{{$product->category->id}}">
-                                    {{$product->category->category_name}}
+                                @foreach ($categories as $category)
+                                <option value="{{$category->id}}">
+                                    {{$category->category_name}}
                                 </option>
                                 @endforeach
+
                             </select>
                         </div>
                     </div>
