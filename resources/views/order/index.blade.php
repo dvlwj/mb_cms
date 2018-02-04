@@ -28,9 +28,9 @@
                             <div class="row" style="margin:1em 0;">
                                 <div class="center-block">
                                     <div class="col-md-6">
-                                        <select class="form-control" id="{{$category->id}}" name="{{$category->id}}/produk" placeholder="{{$category->id}}" required>
-                                            <option disabled selected>Pilih {{$category->category_name}}</option>
-                                            @foreach ($products as $product)
+                                        <select class="form-control" id="{{$category->id}}" name="{{$category->id}}/produk" placeholder="{{$category->id}}" onchange="changePrice()" required>
+                                            <option value="0" disabled selected>Pilih {{$category->category_name}}</option>
+                                            @foreach($products as $key => $product)
                                                 @if($product->category_id == $category->id)
                                                 <option value="{{$product->id}}" required>
                                                     {{$product->product_name}}
@@ -40,7 +40,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="number" class="form-control" id="{{$category->id}}/price" name="price" placeholder="Harga" disabled>
+                                        <input type="number" class="form-control" id="{{$key}}" name="price" placeholder="Harga" disabled>
                                     </div>
                                     <div class="col-md-1">
                                         <input type="number" class="form-control" id="amount" name="amount" placeholder="Jumlah" value="1" required>
@@ -74,17 +74,10 @@
 @endsection
 @section('script')
 <script>
-    $('#{{$category->id}}/product').on('change', function(e){
-        alert('berubah');
-        console.log(e);
-        var category_id = e.target.value;
-        $.get('json/product?product_id=' + product_id, function(data) {
-            console.log(data);
-            $('{{$category->id}}/price').empty();
-            $.each(data, function(index,subCatObj){
-                $('{{$category->id}}/price').append(''+subCatObj.price+'');
-            });
-        });
-    });
+    document.getElementById("{{$key}}").addEventListener("change", changePrice());
+    function changePrice() {
+        var price = {{$product->price}};
+        document.getElementById({{$key}}).value = price;
+    }
 </script>
 @endsection
