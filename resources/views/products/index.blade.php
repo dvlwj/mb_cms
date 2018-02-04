@@ -66,7 +66,8 @@
                             @endif
                             <td class="text-center">{{date('H:i:s d-m-Y', strtotime($product->created_at))}}</td>
                             <td class="text-center">{{date('H:i:s d-m-Y', strtotime($product->updated_at))}}</td>
-                            <td class="text-center">{{$product->picture}}</td>
+                            <td class="text-center">
+                                    <img src="{{ Storage::url('/assets/uploads/').$product->picture }}" /> </img></td>
                             <td class="text-center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <form action="{{ route('products.destroy', $product->id) }}" method="post">
