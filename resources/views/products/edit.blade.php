@@ -57,7 +57,7 @@
                     <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                         <label class="control-label col-md-2" for="password">Password :(on maintenance)</label>
                         <div class="col-md-6">
-                            <input type="password" class="form-control" id="password" name="password" value="{{ $users->password }}" placeholder="Password User" required>
+                            <input type="password" class="form-control" id="password" name="password" value="{{ $users->password }}" placeholder="Password User" disabled>
                         </div>
                     </div>
                     @if ($errors->any())

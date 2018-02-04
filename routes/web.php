@@ -20,10 +20,9 @@ Route::get('/home', function () {
 })->name('home');
 
 Route::group(['prefix' => 'admin','middleware' => 'auth'],function() {
-	// ini route resource  sudah menangani semua get put delete
 	Route::resource('categories', 'CategoriesController');
 	Route::resource('users', 'UsersController');
-	// Route::resource('products', 'ProductsController');
+	Route::resource('products', 'ProductsController');
 });
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Products;
+use App\Categories;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;;
 use Auth;
 
-class UsersController extends Controller
+class ProductsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = user::orderBy('id')->paginate(5);
-        return view('users.index',compact('users'));
+        $products = products::orderBy('id')->paginate(5);
+        return view('products.index',compact('products'));
     }
 
     /**
@@ -28,7 +28,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        return view('products.create',compact('products'));
     }
 
     /**
@@ -40,23 +40,26 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|min:3|max:25|unique:users',
-            'username' => 'required|min:3|max:25|unique:users',
-            'userlevel' => 'required',
-            'email' => 'required|max:25|unique:users',
-            'password' => 'required|min:3',
+            'category_id' => 'required',
+            'product_code' => 'required|min:3|unique:products',
+            'product_name' => 'required|min:3|unique:products',
+            'price' => 'required',
+            'unit' => 'required',
         ]);
-        // $article = Article::create($request->all());
-        // $categories = categories::create($request->all());
-        $users = new User;
-        $users-> name =$request->name;
-        $users-> username =$request->username;
-        $users-> userlevel =$request->userlevel;
-        $users-> email =$request->email;
-        $users-> password =Hash::make($request->password);
-        $users-> created_by = Auth::user()->id;
-        $users-> save();
-        return redirect()->route('users.index')->with('message','Data berhasil ditambahkan !');
+        $products = new Products;
+        $products-> category_id = $request->category_id;
+        $products-> product_code = $request->product_code;
+        $products-> product_name = $request->product_name;
+        $products-> picture = $request->picture;
+        $products-> description = $request->description;
+        $products-> price = $request->price;
+        $products-> width = $request->width;
+        $products-> height = $request->height;
+        $products-> weight = $request->weight;
+        $products-> unit =$request->unit;
+        $products-> created_by = Auth::user()->id;
+        $products-> save();
+        return redirect()->route('products.index')->with('message','Data berhasil ditambahkan !');
     }
 
     /**
@@ -80,7 +83,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         $users = User::findOrFail($id);
-        return view('users.edit', compact('users'));
+        return view('products.edit', compact('products'));
     }
 
     /**
@@ -97,7 +100,7 @@ class UsersController extends Controller
             // 'username' => 'required|min:3|max:25|unique:users',
             'userlevel' => 'required',
             // 'email' => 'required|max:25|unique:users',
-            'password' => 'required|min:3',
+            // 'password' => 'required|min:3',
         ]);
 
         $users = User::findOrFail($id);
@@ -105,14 +108,14 @@ class UsersController extends Controller
         // $users-> username =$request->username;
         $users-> userlevel =$request->userlevel;
         // $users-> email =$request->email;
-        $users-> password =Hash::make($request->password);
+        // $users-> password =Hash::make($request->password);
         $users-> updated_by = Auth::user()->id;
         $users-> save();        
         // $categories = categories::findOrFail($id)->update($request->all());
         // $categories-> updated_by = Auth::user()->id;
         // $categories-> save();
 
-        return redirect()->route('users.index')->with('message', 'Data berhasil diubah !');
+        return redirect()->route('products.index')->with('message', 'Data berhasil diubah !');
     }
 
     /**
@@ -124,6 +127,6 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $users = User::findOrFail($id)->delete();
-        return redirect()->route('users.index')->with('message', 'Data berhasil dihapus !');
+        return redirect()->route('products.index')->with('message', 'Data berhasil dihapus !');
     }
 }
