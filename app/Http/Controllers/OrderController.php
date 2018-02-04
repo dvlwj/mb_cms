@@ -15,12 +15,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $categories = Categories::get();
-        $products = Products::get();
-        // dd($order);
+        $products = Products::all();
+        $categories = Categories::all();
         return view('order.index',[
-            'categories' => $categories,
-            'products' => $products
+            'products' => $products,
+            'categories' => $categories
         ]);
     }
 
@@ -33,6 +32,19 @@ class OrderController extends Controller
     {
         $order = transaction::findOrFail($purchase_order_code);
         return redirect()->route('order.check_result')->with('message', 'Data Pesanan Anda');
+    }
+
+    // public function JSONCategory()
+    // {
+    //     $categories = Categories::all();
+    //     return view('kategori', compact('kategori'));
+    // }
+
+    public function JSONProduct()
+    {
+        $categories = Input::get('category_id');
+        $product = Product::where('product_id', '=', $categories)->get();
+        return response()->json($product);
     }
 
     /**

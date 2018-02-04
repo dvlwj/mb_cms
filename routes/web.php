@@ -34,7 +34,10 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'],function() {
 	Route::resource('users', 'UsersController');
 });
 
-Route::group(['prefix' => 'admin','middleware' => 'admin'],function() {
+Route::group(['prefix' => 'json'],function() {
+	// Route::get('/category','OrderController@JSONCategory');
+	Route::get('/product','OrderController@JSONProduct');
+	// Route::get('/price', 'OrderController@JSONPrice');
 });
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

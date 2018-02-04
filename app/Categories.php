@@ -17,4 +17,7 @@ class Categories extends Model
     {
         return $this->belongsTo('App\User','updated_by');
     }
+    // public function products() {
+    //     return $this->hasMany('Product', 'category_id');
+    // }
 }

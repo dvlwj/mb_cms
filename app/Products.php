@@ -24,5 +24,5 @@ class Products extends Model
     public function updater()
     {
         return $this->belongsTo('App\User','updated_by');
-    }
+   }
 }
