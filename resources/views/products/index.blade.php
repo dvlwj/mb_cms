@@ -26,15 +26,15 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kategori</th>
-                            <th>Kode</th>
+                            {{--  <th>Kategori</th>  --}}
+                            {{--  <th>Kode</th>  --}}
                             <th>Nama</th>
-                            <th>Deskripsi</th>
-                            <th>Harga</th>
-                            <th>Lebar</th>
-                            <th>Tinggi</th>
-                            <th>Berat</th>
-                            <th>Unit Satuan</th>
+                            {{--  <th>Deskripsi</th>  --}}
+                            {{--  <th>Harga</th>  --}}
+                            {{--  <th>Lebar</th>  --}}
+                            {{--  <th>Tinggi</th>  --}}
+                            {{--  <th>Berat</th>  --}}
+                            {{--  <th>Unit Satuan</th>  --}}
                             <th>Di Buat oleh</th>
                             <th>Di Perbarui oleh</th>
                             <th>Tanggal Buat</th>
@@ -48,15 +48,15 @@
                         @foreach($products as $product)
                         <tr>
                             <td class="text-center">{{$no++}}</td>
-                            <td class="text-center">{{$product->category_id}}</td>
-                            <td class="text-center">{{$product->product_code}}</td>
+                            {{--  <td class="text-center">{{$product->category_id}}</td>  --}}
+                            {{--  <td class="text-center">{{$product->product_code}}</td>  --}}
                             <td class="text-center">{{$product->product_name}}</td>
-                            <td class="text-justify">{{$product->description}}</td>
-                            <td class="text-center">Rp {{$product->price}}</td>
+                            {{--  <td class="text-left">{{$product->description}}</td>  --}}
+                            {{--  <td class="text-center">Rp {{$product->price}}</td>
                             <td class="text-center">{{$product->width}} cm</td>
                             <td class="text-center">{{$product->height}} cm</td>
                             <td class="text-center">{{$product->weight}} gr</td>
-                            <td class="text-center">{{$product->unit}}</td>
+                            <td class="text-center">{{$product->unit}}</td>  --}}
                             @if($product->creator!=null)
                             <td class="text-center">{{$product->creator->username}}</td>
                             @else
@@ -69,10 +69,10 @@
                             @endif
                             <td class="text-center">{{date('H:i:s d-m-Y', strtotime($product->created_at))}}</td>
                             <td class="text-center">{{date('H:i:s d-m-Y', strtotime($product->updated_at))}}</td>
-                            <td class="text-center">
-                                <img src="../{{Storage::url('assets/uploads/').$product->picture}}" class="img-responsive" alt="{{$product->picture}}" width="100"></img>
+                            <td>
+                                <img src="../{{Storage::url('assets/uploads/').$product->picture}}" class="img-responsive center-block" alt="{{$product->picture}}" width="100"></img>
                             </td>
-                            <td class="text-center">
+                            <td class="text-center" width="8%">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <form action="{{ route('products.destroy', $product->id) }}" method="post">
                                         {{csrf_field()}}

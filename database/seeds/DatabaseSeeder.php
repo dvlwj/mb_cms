@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => 'admin',
+            'name' => 'ricky',
             'username' => 'admin',
             'userlevel' => 'admin',
             'email' =>  'admin@example.com',
@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'created_at' => Carbon::now()
         ]);
         DB::table('users')->insert([
-            'name' => 'operator',
+            'name' => 'budi',
             'username' => 'operator',
             'userlevel' => 'pegawai',
             'email' =>  'operator@example.com',

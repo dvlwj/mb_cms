@@ -47,10 +47,13 @@ class ProductsController extends Controller
     {
         $this->validate($request, [
             'category_id' => 'required',
-            'product_code' => 'required|min:3|unique:products',
+            'product_code' => 'required|min:3|max:10|unique:products',
             'product_name' => 'required|min:3|unique:products',
-            'price' => 'required',
-            'unit' => 'required',
+            'price' => 'required|min:3|max:10',
+            'width' => 'min:3|max:6',
+            'height' => 'min:3|max:6',
+            'weight' => 'min:3|max:6',
+            'unit' => 'required|min:3|max:10',
         ]);
         $products = new Products;
         $products->category_id = $request->category_id;
@@ -96,8 +99,11 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        $users = User::findOrFail($id);
-        return view('products.edit', compact('products'));
+        $categories = Categories::get();
+        $products = products::findOrFail($id);
+        return view('products.edit',[
+            'categories' => $categories],
+        compact('products'));
     }
 
     /**
@@ -110,25 +116,36 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            // 'name' => 'required|min:3|max:25|unique:users',
-            // 'username' => 'required|min:3|max:25|unique:users',
-            'userlevel' => 'required',
-            // 'email' => 'required|max:25|unique:users',
-            // 'password' => 'required|min:3',
+            'category_id' => 'required',
+            'product_code' => 'required|min:3|max:10',
+            'product_name' => 'required|min:3',
+            'price' => 'required|min:3|max:10',
+            'width' => 'min:3|max:6',
+            'height' => 'min:3|max:6',
+            'weight' => 'min:3|max:6',
+            'unit' => 'required|min:3|max:10',
         ]);
-
-        $users = User::findOrFail($id);
-        // $users-> name =$request->name;
-        // $users-> username =$request->username;
-        $users-> userlevel =$request->userlevel;
-        // $users-> email =$request->email;
-        // $users-> password =Hash::make($request->password);
-        $users-> updated_by = Auth::user()->id;
-        $users-> save();        
-        // $categories = categories::findOrFail($id)->update($request->all());
-        // $categories-> updated_by = Auth::user()->id;
-        // $categories-> save();
-
+        $products = products::findOrFail($id);
+        $products->category_id = $request->category_id;
+        $products->product_code = $request->product_code;
+        $products->product_name = $request->product_name;
+        $products->description = $request->description;
+        $products->price = $request->price;
+        $products->width = $request->width;
+        $products->height = $request->height;
+        $products->weight = $request->weight;
+        $products->unit =$request->unit;
+        $products->updated_by = Auth::user()->id;
+        $dir = \Config::get('constants.product_upload');
+        if ($request->file('picture')) {
+            $img = \Image::make($_FILES['picture']['tmp_name']);
+            $path = [];
+            $time = \Carbon::now()->format('YmdHis');
+            $path[] = $dir.$time.'-'.$request->file('picture')->getClientOriginalName();
+            \Storage::put($path[0], $img->stream()->__toString(), 'public');
+            $products->picture = $time.'-'.$request->file('picture')-> getClientOriginalName();
+        }
+        $products-> save();        
         return redirect()->route('products.index')->with('message', 'Data berhasil diubah !');
     }
 
@@ -140,7 +157,7 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        $users = User::findOrFail($id)->delete();
+        $products = products::findOrFail($id)->delete();
         return redirect()->route('products.index')->with('message', 'Data berhasil dihapus !');
     }
 }

@@ -21,10 +21,10 @@ class Product extends Migration
             $table->string('product_name')->unique();
             $table->string('picture')->nullable();
             $table->text('description')->nullable();
-            $table->decimal('price');
-            $table->decimal('width')->nullable();
-            $table->decimal('height');
-            $table->decimal('weight');
+            $table->decimal('price',12,0);
+            $table->decimal('width',6,0)->nullable();
+            $table->decimal('height',6,0)->nullable();
+            $table->decimal('weight',6,0)->nullable();
             $table->string('unit');
             $table->integer('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users');

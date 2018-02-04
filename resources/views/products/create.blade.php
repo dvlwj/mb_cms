@@ -21,7 +21,7 @@
                     {{ Session::get('message') }}
                 </div>
                 @endif
-                Tambah User
+                Tambah Produk
             </div>
             <form class="form-horizontal" action="{{ route('products.store') }}" method="post" enctype="multipart/form-data" >
                 <div class="panel-body">

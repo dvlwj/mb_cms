@@ -55,9 +55,12 @@
                         </div>
                     </div>
                     <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
-                        <label class="control-label col-md-2" for="password">Password :(on maintenance)</label>
+                        <label class="control-label col-md-2" for="password">Password :</label>
                         <div class="col-md-6">
-                            <input type="password" class="form-control" id="password" name="password" value="{{ $users->password }}" placeholder="Password User" required>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password User">
+                        </div>
+                        <div class="col-md-4">
+                            <span class="label label-danger">*Diisi hanya bila ingin merubah password user</span>                            
                         </div>
                     </div>
                     @if ($errors->any())

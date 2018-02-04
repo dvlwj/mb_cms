@@ -97,7 +97,7 @@ class UsersController extends Controller
             // 'username' => 'required|min:3|max:25|unique:users',
             'userlevel' => 'required',
             // 'email' => 'required|max:25|unique:users',
-            'password' => 'required|min:3',
+            // 'password' => 'min:3',
         ]);
 
         $users = User::findOrFail($id);

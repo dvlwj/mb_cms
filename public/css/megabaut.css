@@ -1,9 +1,14 @@
 table thead tr th{
     text-align: center !important;
-    vertical-align: middle;
+    vertical-align: middle !important;
     font-weight: bold;
+    word-wrap: break-word;
 }
 
 table tbody tr td {
-    vertical-align: bottom;
+    vertical-align: middle !important;
+}
+
+.panel-body {
+    overflow: auto;
 }

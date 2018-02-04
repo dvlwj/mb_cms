@@ -28,12 +28,12 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Username</th>
-                            <th>Userlevel</th>
+                            <th>Level</th>
                             <th>Email</th>
-                            <th>Di Buat oleh</th>
-                            <th>Di Perbarui oleh</th>
-                            <th>Tanggal Buat</th>
-                            <th>Tanggal Update</th>
+                            <th>Dibuat oleh</th>
+                            <th>Diedit oleh</th>
+                            <th>Dibuat</th>
+                            <th>Diedit</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
