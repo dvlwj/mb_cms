@@ -101,14 +101,14 @@
 @endsection
 @section('script')
 <script>
-    // function sumDomArray(dom) {
-    //     console.log(dom); return;
-    //     var ii, sum = 0;
-    //     for (ii in dom) {
-    //         sum += parseInt(dom[ii].value);
-    //     }
-    //     return sum;
-    // }
+    function sumDomArray(dom){
+        var ii = 0, sum = 0, chunk;
+        for(;ii<dom.length;) {
+            chunk = parseInt(dom[ii++].value);
+            sum += isNaN(chunk) ? 0 : chunk;
+        }
+        return sum;
+    }
     @foreach ($categories as $category)
     document.getElementById('{{$category->id}}/kategori').addEventListener('change', function () {
         var category = document.getElementById('{{$category->id}}/kategori');
@@ -118,11 +118,7 @@
         var totalbill = document.getElementById('totalbill');
         price.value = category.value.split('|')[1];
         totalprice.value = price.value * number.value;
-        // totalbill.value = sumDomArray(document.getElementsByClassName('totalprice'));
-        // for(index in totalpricearray) {
-        //     totalbill.value = sum += totalpricearray[index].value;
-        // };
-        // var totalpricearray = document.getElementsByClassName('totalprice'), index, sum = 0;
+        totalbill.value = sumDomArray(document.getElementsByClassName('totalprice'));
     });
     document.getElementById('{{$category->id}}/amount').addEventListener('change', function () {
         var category = document.getElementById('{{ $category-> id }}/kategori');
@@ -132,10 +128,7 @@
         var totalbill = document.getElementById('totalbill');
         price.value = category.value.split('|')[1];
         totalprice.value = price.value * number.value;
-        // var totalpricearray = document.getElementsByClassName('totalprice'), index, sum = 0;
-        // for(index in totalprice) {
-        //             totalbill.value = sum += totalpricearray[index].value;
-        // };
+        totalbill.value = sumDomArray(document.getElementsByClassName('totalprice'));
     });
     @endforeach
 </script>

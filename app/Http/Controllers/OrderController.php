@@ -70,6 +70,7 @@ class OrderController extends Controller
             'buyer_address' => 'required',
             'buyer_phone' => 'required',
         ]);
+        dd($request->all);
         $products = Products::all();
         $categories = Categories::all();
         $order = new Order;
