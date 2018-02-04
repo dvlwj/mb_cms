@@ -48,21 +48,21 @@
                         @foreach($products as $product)
                         <tr>
                             <td class="text-center">{{$no++}}</td>
-                            <td class="text-center"></td>
+                            <td class="text-center">{{$product->category_id}}</td>
                             <td class="text-center">{{$product->product_code}}</td>
                             <td class="text-center">{{$product->product_name}}</td>
-                            <td class="text-center">{{$product->description}}</td>
-                            <td class="text-center">{{$product->price}}</td>
-                            <td class="text-center">{{$product->width}}</td>
-                            <td class="text-center">{{$product->height}}</td>
-                            <td class="text-center">{{$product->weight}}</td>
+                            <td class="text-justify">{{$product->description}}</td>
+                            <td class="text-center">Rp {{$product->price}}</td>
+                            <td class="text-center">{{$product->width}} cm</td>
+                            <td class="text-center">{{$product->height}} cm</td>
+                            <td class="text-center">{{$product->weight}} gr</td>
                             <td class="text-center">{{$product->unit}}</td>
-                            @if(isset($user) && !is_null($user))
+                            @if($product->creator!=null)
                             <td class="text-center">{{$product->creator->username}}</td>
                             @else
                             <td class="text-center">-</td>
                             @endif
-                            @if(isset($user) && !is_null($user))
+                            @if($product->updator!=null)
                             <td class="text-center">{{$product->updater->username}}</td>
                             @else
                             <td class="text-center">-</td>
@@ -70,7 +70,7 @@
                             <td class="text-center">{{date('H:i:s d-m-Y', strtotime($product->created_at))}}</td>
                             <td class="text-center">{{date('H:i:s d-m-Y', strtotime($product->updated_at))}}</td>
                             <td class="text-center">
-                                <img src="{{ Storage::url('/assets/uploads/').$product->picture }}" class="img-responsive" alt="image"></img>
+                                <img src="../{{Storage::url('assets/uploads/').$product->picture}}" class="img-responsive" alt="{{$product->picture}}" width="100"></img>
                             </td>
                             <td class="text-center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
