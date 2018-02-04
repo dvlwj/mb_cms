@@ -9,8 +9,12 @@ class Categories extends Model
 {
     protected $fillable = ['category_name'];
 
-    public function username()
+    public function creator()
     {
-        return $this->belongsTo(User);
+        return $this->belongsTo('App\User','created_by');
+    }
+    public function updater()
+    {
+        return $this->belongsTo('App\User','updated_by');
     }
 }

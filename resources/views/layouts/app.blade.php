@@ -30,7 +30,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
             </div>
@@ -52,10 +52,10 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{ route('categories.index')}}" ><i class="fa fa-fw fa-cubes"></i> Kategori Produk</a></li>
-                            {{--  <li><a href="{{ route('products.index') }}"><i class="fa fa-fw fa-cube"></i> Produk</a></li>  --}}
-                @if(Auth::user()->userlevel ==   'ADMIN')
-                            <li><a href="#"><i class="fa fa-fw fa-users"></i> Manajemen User</a></li>
-                @endif
+                            <li><a href="{{ route('products.index') }}"><i class="fa fa-fw fa-cube"></i> Produk</a></li>
+                            @if(Auth::user()->userlevel ==   'admin')
+                            <li><a href="{{ route('users.index')}}" ><i class="fa fa-fw fa-users"></i> Manajemen User</a></li>
+                            @endif
                             <li>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault();toastr.warning('Logout success!');document.getElementById('logout-form').submit();">
                                     <i class="fa fa-fw fa-sign-out"></i> Logout
