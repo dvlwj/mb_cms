@@ -66,31 +66,31 @@
                     <div class="form-group {{ $errors->has('price') ? 'has-error' : '' }}">
                         <label class="control-label col-md-2" for="price">Harga Produk :</label>
                         <div class="col-md-6">
-                            <input type="number" class="form-control" id="price" name="price" placeholder="Harga Produk" required>
+                            <input type="number" class="form-control" id="price" name="price" placeholder="Harga Produk (Rp)" required>
                         </div>
                     </div>
                     <div class="form-group {{ $errors->has('width') ? 'has-error' : '' }}">
                         <label class="control-label col-md-2" for="width">Lebar :</label>
                         <div class="col-md-6">
-                            <input type="number" class="form-control" id="width" name="width" placeholder="Lebar Produk" required>
+                            <input type="number" class="form-control" id="width" name="width" placeholder="Lebar Produk (cm)" required>
                         </div>
                     </div>
                     <div class="form-group {{ $errors->has('height') ? 'has-error' : '' }}">
                         <label class="control-label col-md-2" for="height">Tinggi :</label>
                         <div class="col-md-6">
-                            <input type="number" class="form-control" id="height" name="height" placeholder="Tinggi Produk" required>
+                            <input type="number" class="form-control" id="height" name="height" placeholder="Tinggi Produk (cm)" required>
                         </div>
                     </div>
                     <div class="form-group {{ $errors->has('weight') ? 'has-error' : '' }}">
                         <label class="control-label col-md-2" for="weight">Berat :</label>
                         <div class="col-md-6">
-                            <input type="number" class="form-control" id="weight" name="weight" placeholder="Berat Produk" required>
+                            <input type="number" class="form-control" id="weight" name="weight" placeholder="Berat Produk (gram)" required>
                         </div>
                     </div>
                     <div class="form-group {{ $errors->has('unit') ? 'has-error' : '' }}">
                         <label class="control-label col-md-2" for="unit">Unit Satuan :</label>
                         <div class="col-md-6">
-                            <input type="number" class="form-control" id="unit" name="unit" placeholder="Unit Satuan" required>
+                            <input type="text" class="form-control" id="unit" name="unit" placeholder="Unit Satuan (Cth: kardus, pcs, plastik, etc)" required>
                         </div>
                     </div>
                     @if ($errors->any())
