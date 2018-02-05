@@ -70,20 +70,27 @@ class OrderController extends Controller
             'buyer_address' => 'required',
             'buyer_phone' => 'required',
         ]);
-        dd($request->all);
+        die(json_encode($request->all()));
+        foreach($request as $key => $value){
+            $map = 
+            $explode = explode('|',$value);
+            dd($explode);
+        };
+        // foreach ($request as $request){
+        //     $explode 
+        // }
         $products = Products::all();
         $categories = Categories::all();
+        dd($request->all());
         $order = new Order;
         $order-> buyer_name =$request->buyer_name;
         $order-> buyer_address =$request->buyer_address;
         $order-> buyer_phone =$request->buyer_phone;
-        $users-> email =$request->email;
-        foreach ($categories as $category){
-        //    $order->{{$category->id}}/produk = $request->{{}}
-        };
-        $users-> created_by = Auth::user()->id;
-        $users-> save();
-        return redirect()->route('order.index')->with('message','Data berhasil ditambahkan !');
+        // foreach ($categories as $category){
+        //     // $order->{{$category->id}}/produk = $request->{{}}
+        // };
+        $order-> save();
+        return redirect()->route('order.success')->with('message','Pesanan anda berhasil ditambahkan!');
     }
 
     /**

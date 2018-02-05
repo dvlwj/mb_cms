@@ -11,13 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('index');
+Route::get('/', 'WelcomeController@index')->name('index');
+    // return view('welcome');
+// })->name('index');
 
-Route::get('/home', function () {
-    return redirect('/');
-})->name('home');
+Route::get('/home', 'WelcomeController@index')->name('home');
+Route::get('showproducts/{id}', 'WelcomeController@show')->name('showproducts');
+//     return redirect('/');
+// })->name('home');
 
 Route::group(['prefix'],function(){
 	Route::resource('order','OrderController');
