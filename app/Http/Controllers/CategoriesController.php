@@ -18,10 +18,6 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = categories::orderBy('id')->paginate(5);
-        // // dd($categories->username);
-        // foreach($categories as $cat){
-        //     dd($cat->username); //berarrti salah di relationshipo nya wkwk
-        // }
         return view('categories.index',compact('categories'));
     }
 

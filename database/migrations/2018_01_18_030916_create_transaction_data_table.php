@@ -15,9 +15,9 @@ class CreateTransactionDataTable extends Migration
     {
         Schema::create('transaction_data', function (Blueprint $table) {
             $table->integer('transaction_id')->unsigned();
-            $table->foreign('transaction_id')->references('transaction_id')->on('transaction');
+            $table->foreign('transaction_id')->references('transaction_id')->on('transaction')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('product_id')->unsigned();
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('amount');
             $table->timestamps();
         });

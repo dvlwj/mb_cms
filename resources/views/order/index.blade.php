@@ -64,13 +64,13 @@
                                         </select>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="number" class="form-control" id="{{$category->id}}/price" name="{{$category->id}}/price" placeholder="Harga" disabled>
+                                        <input type="number" class="form-control" id="{{$category->id}}/price" name="{{$category->id}}/price" placeholder="Harga" readonly>
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="number" class="form-control" id="{{$category->id}}/amount" name="{{$category->id}}/amount" placeholder="Jumlah" value="1" required>
+                                        <input type="number" class="form-control" id="{{$category->id}}/amount" name="{{$category->id}}/amount" placeholder="Jumlah" value="1">
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="number" class="form-control totalprice" id="{{$category->id}}/totalprice" name="{{$category->id}}/totalprice" placeholder="Total Harga" disabled>
+                                        <input type="number" class="form-control totalprice" id="{{$category->id}}/totalprice" name="{{$category->id}}/totalprice" placeholder="Total Harga" readonly>
                                     </div>
                                 </div>
                             </div>
