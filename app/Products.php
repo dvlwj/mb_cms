@@ -11,6 +11,7 @@ class Products extends Model
     protected $fillable = [
         'product_code', 'product_name', 'picture', 'description', 'price', 'width', 'height', 'weight', 'unit',
     ];
+    protected $table = 'products';
 
     public function categorier()
     {

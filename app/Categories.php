@@ -8,6 +8,7 @@ use User;
 class Categories extends Model
 {
     protected $fillable = ['category_name'];
+    protected $table = 'categories';
 
     public function creator()
     {

@@ -14,14 +14,33 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function JSONCategory(){
+        $categories = Categories::all();
+        return view('order.index', compact('categories'));
+    }
+    public function JSONProduct(){
+        $category_id = Input::get('category_id');
+        $products = Products::where('category_id', '=', $category_id)->get();
+        return response()->json($products);
+    }
+
     public function index()
     {
-        $products = Products::all();
+        // $products = Products::all();
+        // $categories = Categories::all();
+        // return view('order.index',[
+        //     'products' => $products,
+        //     'categories' => $categories
+        // ]);
         $categories = Categories::all();
-        return view('order.index',[
-            'products' => $products,
-            'categories' => $categories
-        ]);
+        return view('order.index', compact('categories'));
+    }
+
+    public function index2($id)
+    {
+        $products = Products::where('category_id', $id)->get();
+        return json_encode($products);
     }
 
     public function check()
@@ -53,7 +72,7 @@ class OrderController extends Controller
      */
     private function generatePurchaseOrderCode()
     {
-  return time();
+        return time();
     }
 
     public function store(Request $request)

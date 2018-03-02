@@ -48,8 +48,31 @@
                                     </div>
                                 </div>
                             </div>
-                            @foreach ($categories as $category)
-                            <div class="row" style="margin:1em 0;">
+                            {{--  <div class="form-group">
+                                <label for="">Your Provinces</label>
+                                <select class="form-control" name="provinces" id="provinces">
+                                <option value="0" disable="true" selected="true">=== Select Provinces ===</option>
+                                    @foreach ($categories as $key => $value)
+                                    <option value="{{$value->id}}">{{ $value->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Your Regencies</label>
+                                <select class="form-control" name="regencies" id="regencies">
+                                <option value="0" disable="true" selected="true">=== Select Regencies ===</option>
+                                </select>
+                            </div>  --}}
+                            <select name="category" style="text-align: center;">
+                            @foreach($categories as $category)
+                                <option value="{{$categories->id}}">{{$category->nama}}</option>
+                            @endforeach
+                            </select>
+                            <select name="product" style="text-align: center;"></select>	
+                            {{--  @foreach ($categories as $category)
+                            <option value="{{$category->id}}">{{$category->nama}}</option>  --}}
+                            {{--  <div class="row" style="margin:1em 0;">
                                 <div class="center-block">
                                     <div class="col-md-6">
                                         <select class="form-control" id="{{$category->id}}/kategori" name="{{$category->id}}/produk" placeholder="{{$category->category_name}}" required>
@@ -73,8 +96,8 @@
                                         <input type="number" class="form-control totalprice" id="{{$category->id}}/totalprice" name="{{$category->id}}/totalprice" placeholder="Total Harga" readonly>
                                     </div>
                                 </div>
-                            </div>
-                            @endforeach
+                            </div>  --}}
+                            {{--  @endforeach  --}}
                             <div class="col-md-12">
                                 <input type="number" class="form-control" id="totalbill" name="totalbill" placeholder="Total Harga Pesanan" disabled>
                             </div>
@@ -100,6 +123,27 @@
 </div>
 @endsection
 @section('script')
+<script type="text/javascript">
+	$('select[name="category"]').prop("selectedIndex", -1);
+	$('select[name="category"]').on('change', function(){
+		var id = $(this).val();
+		if(id){
+			$.ajax({
+				url: '/category/'+id,
+				type: 'GET',
+				dataType: 'json',
+				success: function(data){
+					$('select[name="product"]').empty();
+					$.each(data, function(key, value) {
+                    	$('select[name="product"]').append('<option value="'+ value.id +'">'+ value.nama +'</option>');
+                    });
+				}
+			});	
+		}else{
+			$('select[name="product"]').empty();
+		}
+	});
+</script>
 <script>
     function sumDomArray(dom){
         var ii = 0, sum = 0, chunk;

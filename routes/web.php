@@ -36,7 +36,8 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'],function() {
 });
 
 Route::group(['prefix' => 'json'],function() {
-	// Route::get('/category','OrderController@JSONCategory');
+	Route::get('/category','OrderController@index');
+	Route::get('/category/{id}','OrderController@index2');
 	Route::get('/product','OrderController@JSONProduct');
 	// Route::get('/price', 'OrderController@JSONPrice');
 });
