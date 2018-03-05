@@ -156,6 +156,7 @@
         })
         div.className = 'row'
         div.append(select)
+        
         root.append(div)
         })
     })
