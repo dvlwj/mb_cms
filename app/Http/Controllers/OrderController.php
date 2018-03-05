@@ -17,24 +17,26 @@ class OrderController extends Controller
 
     public function JSONCategory(){
         $categories = Categories::all();
-        return view('order.index', compact('categories'));
+        return response()->json($categories);
+        // return view('order.index', compact('categories'));
     }
     public function JSONProduct(){
-        $category_id = Input::get('category_id');
-        $products = Products::where('category_id', '=', $category_id)->get();
+        // $category_id = Input::get('category_id');
+        // $products = Products::where('category_id', '=', $category_id)->get();
+        $products = Products::all()->groupBy('category_id');
         return response()->json($products);
     }
 
     public function index()
     {
-        // $products = Products::all();
-        // $categories = Categories::all();
-        // return view('order.index',[
-        //     'products' => $products,
-        //     'categories' => $categories
-        // ]);
+        $products = Products::all();
         $categories = Categories::all();
-        return view('order.index', compact('categories'));
+        return view('order.index',[
+            'products' => $products,
+            'categories' => $categories
+        ]);
+        // $categories = Categories::all();
+        // return view('order.index', compact('categories'));
     }
 
     public function index2($id)
@@ -77,57 +79,58 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'buyer_name' => 'required|min:3|max:25',
-            'buyer_address' => 'required',
-            'buyer_phone' => 'required',
-        ]);
-        $r = $request->all();
-        $pdo = DB::connection()->getPdo();
-        $st = $pdo->prepare("INSERT INTO transaction (buyer_name,buyer_address,buyer_phone,status,purchase_order_code,updated_by,created_at,updated_at) VALUES (:buyer_name,:buyer_address,:buyer_phone,'pending',:purchase_order_code,:updated_by,:created_at,:updated_at);");
+        // $this->validate($request, [
+        //     'buyer_name' => 'required|min:3|max:25',
+        //     'buyer_address' => 'required',
+        //     'buyer_phone' => 'required',
+        // ]);
+        // $r = $request->all();
+        // $pdo = DB::connection()->getPdo();
+        // $st = $pdo->prepare("INSERT INTO transaction (buyer_name,buyer_address,buyer_phone,status,purchase_order_code,updated_by,created_at,updated_at) VALUES (:buyer_name,:buyer_address,:buyer_phone,'pending',:purchase_order_code,:updated_by,:created_at,:updated_at);");
 
-        $st->execute([
-            ':buyer_name'=>$r['buyer_name'], 
-            ':buyer_phone'=>$r['buyer_phone'],
-            ':buyer_address'=>$r['buyer_address'],
-            ':purchase_order_code'=>$this->generatePurchaseOrderCode(),
-            ':updated_by'=>null,
-            ':created_at'=>date("Y-m-d H:i:s"),
-            ':updated_at'=>null
-        ]);
-        $a1 = []; $pointer = 0;
-        $id = $pdo->lastInsertId();
-        foreach($r as $k => $v){
-            if ($st !== null) {
-                $k = $a = explode("/",$k,2);
-                $p = count($k) > 1 and $k = explode("|",$v,2);
-                $p and $a[1] === "produk" and $a1[$pointer]['product_id'] = $k[1];
-                $p and $a[1] === "amount" and ($a1[$pointer]['created_at'] = date('Y-m-d H:i:s') xor $a1[$pointer]['updated_at'] = null xor $a1[$pointer]['transaction_id'] = $id xor
-                $a1[$pointer]['amount'] = $k[0] xor $pointer++);
-            }
-        }
-        dd($r);
-        \DB::table('transaction_data')->insert($a1);
-        // die(json_encode($request->all()));
-        // foreach($request as $key => $value){
-        //     $map = 
-        //     $explode = explode('|',$value);
-        //     dd($explode);
-        // };
-        // // foreach ($request as $request){
-        // //     $explode 
-        // // }
-        // $products = Products::all();
-        // $categories = Categories::all();
-        // dd($request->all());
-        // $order = new Order;
-        // $order-> buyer_name =$request->buyer_name;
-        // $order-> buyer_address =$request->buyer_address;
-        // $order-> buyer_phone =$request->buyer_phone;
-        // // foreach ($categories as $category){
-        // //     // $order->{{$category->id}}/produk = $request->{{}}
-        // // };
-        // $order-> save();
+        // $st->execute([
+        //     ':buyer_name'=>$r['buyer_name'], 
+        //     ':buyer_phone'=>$r['buyer_phone'],
+        //     ':buyer_address'=>$r['buyer_address'],
+        //     ':purchase_order_code'=>$this->generatePurchaseOrderCode(),
+        //     ':updated_by'=>null,
+        //     ':created_at'=>date("Y-m-d H:i:s"),
+        //     ':updated_at'=>null
+        // ]);
+        // $a1 = []; $pointer = 0;
+        // $id = $pdo->lastInsertId();
+        // foreach($r as $k => $v){
+        //     if ($st !== null) {
+        //         $k = $a = explode("/",$k,2);
+        //         $p = count($k) > 1 and $k = explode("|",$v,2);
+        //         $p and $a[1] === "produk" and $a1[$pointer]['product_id'] = $k[1];
+        //         $p and $a[1] === "amount" and ($a1[$pointer]['created_at'] = date('Y-m-d H:i:s') xor $a1[$pointer]['updated_at'] = null xor $a1[$pointer]['transaction_id'] = $id xor
+        //         $a1[$pointer]['amount'] = $k[0] xor $pointer++);
+        //     }
+        // }
+        // dd($r);
+        // \DB::table('transaction_data')->insert($a1);
+
+        die(json_encode($request->all()));
+        foreach($request as $key => $value){
+            $map = 
+            $explode = explode('|',$value);
+            dd($explode);
+        };
+        // foreach ($request as $request){
+        //     $explode 
+        // }
+        $products = Products::all();
+        $categories = Categories::all();
+        dd($request->all());
+        $order = new Order;
+        $order-> buyer_name =$request->buyer_name;
+        $order-> buyer_address =$request->buyer_address;
+        $order-> buyer_phone =$request->buyer_phone;
+        foreach ($categories as $category){
+            // $order->{{$category->id/produk}} = $request->{{}}
+        };
+        $order-> save();
         return redirect()->route('order.success')->with('message','Pesanan anda berhasil ditambahkan!');
     }
 

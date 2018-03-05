@@ -36,10 +36,10 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'],function() {
 });
 
 Route::group(['prefix' => 'json'],function() {
-	Route::get('/category','OrderController@index');
-	Route::get('/category/{id}','OrderController@index2');
-	Route::get('/product','OrderController@JSONProduct');
-	// Route::get('/price', 'OrderController@JSONPrice');
+	// Route::get('/category','OrderController@index');
+	// Route::get('/category/{id}','OrderController@index2');
+	Route::get('/category', 'OrderController@JSONCategory')->name('json/category');
+	Route::get('/product','OrderController@JSONProduct')->name('json/product');
 });
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

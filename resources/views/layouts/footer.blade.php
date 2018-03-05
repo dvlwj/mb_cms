@@ -5,5 +5,3 @@
         </p>
     </div>
 </footer>
-
-<!-- GRAND MASTER WAS HERE -->
