@@ -128,65 +128,78 @@
     ])
     .then(function([categories, products]) {
         function handleChangeProduct(e) {
-        console.log(e.target)
-    }
+            // console.log(e.target)
+            // console.log(e.target.value)
+            var harga = $(e.target).parent().parent().find('[name="harga"]')
+            var splitVal = e.target.value.split('@')
+            var categoryId = splitVal[0]
+            var codeProduct = splitVal[1]
+            var selectedProduct = products[categoryId].find(function(value, index) {
+                return value.product_code == codeProduct
+            })
+            // harga.value = Number(selectedProduct.price)
+            harga.value = selectedProduct.price
+            // console.log(selectedProduct)
+            // var harga = $(e.target).parent().find('[name="harga"]')
+            console.log(harga)
+            // console.log($(e.target).parent())
+        }
     
-    categories.map(function(category) {
-        var product = products[category.id]
-        var div = document.createElement('div')
-        var cblock = document.createElement('div')
-        var col6 = document.createElement('div')
-        var col2 = document.createElement('div')
-        var col1 = document.createElement('div')
-        var col3 = document.createElement('div')
-        var select = document.createElement('select')
-        var option = document.createElement('option')
-        var harga = document.createElement('input')
-        var jumlah = document.createElement('input')
-        var totalharga = document.createElement('input')
-
-        option.value = ''
-        option.innerHTML = 'Pilih ' + category.category_name
-        div.className = 'row'
-        cblock.className = 'center-block'
-        col6.className = 'col-md-6'
-        col2.className = 'col-md-2'
-        col1.className = 'col-md-1'
-        col3.className = 'col-md-3'
-        harga.className = 'form-control'
-        select.className = 'form-control'
-        jumlah.className = 'form-control'
-        totalharga.className = 'form-control'
-        div.setAttribute("style","margin:1em 0;")
-        jumlah.setAttribute("type","number")
-        jumlah.setAttribute("value","1")
-        jumlah.setAttribute("min","1")
-        harga.setAttribute("placeholder","Harga")
-        totalharga.setAttribute("placeholder","Total Harga")
-        harga.readOnly = true;
-        totalharga.readOnly = true;
-
-        select.addEventListener('change', handleChangeProduct)
-        select.append(option)
-        
-        productmap = product.map(function(p) {
+        categories.map(function(category) {
+            var product = products[category.id]
+            var div = document.createElement('div')
+            var cblock = document.createElement('div')
+            var col6 = document.createElement('div')
+            var col2 = document.createElement('div')
+            var col1 = document.createElement('div')
+            var col3 = document.createElement('div')
+            var select = document.createElement('select')
             var option = document.createElement('option')
-            
-            option.innerHTML = p.product_name
-            option.value = p.product_code
-            
-            select.append(option)
-        })
+            var harga = document.createElement('input')
+            var jumlah = document.createElement('input')
+            var totalharga = document.createElement('input')
 
-        div.append(cblock)
-        cblock.append(col6,col2,col1,col3)
-        col6.append(select)
-        col2.append(harga)
-        col1.append(jumlah)
-        col3.append(totalharga)
-        root.append(div)
+            option.value = ''
+            option.innerHTML = 'Pilih ' + category.category_name
+            div.className = 'row'
+            cblock.className = 'center-block'
+            col6.className = 'col-md-6'
+            col2.className = 'col-md-2'
+            col1.className = 'col-md-1'
+            col3.className = 'col-md-3'
+            harga.className = 'form-control'
+            select.className = 'form-control'
+            jumlah.className = 'form-control'
+            totalharga.className = 'form-control'
+            div.setAttribute("style","margin:1em 0;")
+            jumlah.setAttribute("type","number")
+            jumlah.setAttribute("value","1")
+            jumlah.setAttribute("min","1")
+            harga.setAttribute("placeholder","Harga")
+            harga.setAttribute("name","harga")
+            totalharga.setAttribute("placeholder","Total Harga")
+            // harga.readOnly = true
+            totalharga.readOnly = true
+            select.addEventListener('change', handleChangeProduct)
+            // select.addEventListener('change', handleChangeProduct(products))
+            select.append(option)
+            productmap = product.map(function(p) {
+                var option = document.createElement('option')
+                option.innerHTML = p.product_name
+                option.value = category.id + '@' + p.product_code
+                // option.value = category.id + product.product_name
+                // option.value = p.product_code
+                select.append(option)
+            })
+            div.append(cblock)
+            cblock.append(col6,col2,col1,col3)
+            col6.append(select)
+            col2.append(harga)
+            col1.append(jumlah)
+            col3.append(totalharga)
+            root.append(div)
+        })
     })
-})
     // var root = $('#root');
 
     // $.get("{{route('json/category')}}", function(resp) {
