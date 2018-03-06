@@ -142,6 +142,20 @@
             // harga.value = Number(selectedProduct.price)
             $(harga).val(selectedProduct.price)
             $(totalHarga).val(selectedProduct.price * $(jumlah).val())
+            // console.log($(e.target).parent().parent().parent())
+            // console.log($('#root').find('[name="total_harga"]'))
+            var totalbill = 0
+            var totalSelector = $('#root').find('[name="total_harga"]')
+            // console.log(totalSelector)
+            $(totalSelector).each(function(index, value){
+                totalbill += Number($(value).val())
+                // totalbill += $(value).val()
+                // console.log(value)
+            })
+            // totalSelector.forEach(function(value, index) {
+            // })
+            $('#totalbill').val(totalbill)
+            // console.log(totalbill)
 
             // console.log(selectedProduct)
             // var harga = $(e.target).parent().find('[name="harga"]')
@@ -155,6 +169,17 @@
             var totalHarga = $(e.target).parent().parent().find('[name="total_harga"]')
 
             $(totalHarga).val(jumlah * $(harga).val())
+            var totalbill = 0
+            var totalSelector = $('#root').find('[name="total_harga"]')
+            // console.log(totalSelector)
+            $(totalSelector).each(function(index, value){
+                totalbill += Number($(value).val())
+                // totalbill += $(value).val()
+                // console.log(value)
+            })
+            // totalSelector.forEach(function(value, index) {
+            // })
+            $('#totalbill').val(totalbill)
         }
     
         categories.map(function(category) {
