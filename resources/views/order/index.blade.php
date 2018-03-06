@@ -55,7 +55,7 @@
                             @endforeach
                             </select>
                             <select name="product" style="text-align: center;"></select>	  --}}
-                            @foreach ($categories as $category)
+                            {{--  @foreach ($categories as $category)
                             <option value="{{$category->id}}">{{$category->nama}}</option>
                             <div class="row" style="margin:1em 0;">
                                 <div class="center-block">
@@ -82,7 +82,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
+                            @endforeach  --}}
                             <div class="col-md-12">
                                 <input type="number" class="form-control" id="totalbill" name="totalbill" placeholder="Total Harga Pesanan" disabled>
                             </div>
@@ -131,6 +131,8 @@
             // console.log(e.target)
             // console.log(e.target.value)
             var harga = $(e.target).parent().parent().find('[name="harga"]')
+            var totalHarga = $(e.target).parent().parent().find('[name="total_harga"]')
+            var jumlah = $(e.target).parent().parent().find('[name="jumlah"]')
             var splitVal = e.target.value.split('@')
             var categoryId = splitVal[0]
             var codeProduct = splitVal[1]
@@ -138,11 +140,21 @@
                 return value.product_code == codeProduct
             })
             // harga.value = Number(selectedProduct.price)
-            harga.value = selectedProduct.price
+            $(harga).val(selectedProduct.price)
+            $(totalHarga).val(selectedProduct.price * $(jumlah).val())
+
             // console.log(selectedProduct)
             // var harga = $(e.target).parent().find('[name="harga"]')
-            console.log(harga)
+            // console.log(harga)
             // console.log($(e.target).parent())
+        }
+
+        function handleChangeJumlah(e) {
+            var jumlah = e.target.value
+            var harga = $(e.target).parent().parent().find('[name="harga"]')
+            var totalHarga = $(e.target).parent().parent().find('[name="total_harga"]')
+
+            $(totalHarga).val(jumlah * $(harga).val())
         }
     
         categories.map(function(category) {
@@ -175,12 +187,15 @@
             jumlah.setAttribute("type","number")
             jumlah.setAttribute("value","1")
             jumlah.setAttribute("min","1")
+            jumlah.setAttribute("name","jumlah")
             harga.setAttribute("placeholder","Harga")
             harga.setAttribute("name","harga")
             totalharga.setAttribute("placeholder","Total Harga")
-            // harga.readOnly = true
+            totalharga.setAttribute("name","total_harga")
+            harga.readOnly = true
             totalharga.readOnly = true
             select.addEventListener('change', handleChangeProduct)
+            jumlah.addEventListener('change', handleChangeJumlah)
             // select.addEventListener('change', handleChangeProduct(products))
             select.append(option)
             productmap = product.map(function(p) {
