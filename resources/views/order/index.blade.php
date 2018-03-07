@@ -137,9 +137,13 @@
             var jumlah = $(e.target).parent().parent().find('[name="jumlah"]')
             var splitVal = e.target.value.split('@')
             var categoryId = splitVal[0]
-            var codeProduct = splitVal[1]
+            // var codeProduct = splitVal[1]
+            // var selectedProduct = products[categoryId].find(function(value, index) {
+            //     return value.product_code == codeProduct
+            // })
+            var idProduct = splitVal[1]
             var selectedProduct = products[categoryId].find(function(value, index) {
-                return value.product_code == codeProduct
+                return value.id == idProduct
             })
             // harga.value = Number(selectedProduct.price)
             $(harga).val(selectedProduct.price)
@@ -228,7 +232,8 @@
             productmap = product.map(function(p) {
                 var option = document.createElement('option')
                 option.innerHTML = p.product_name
-                option.value = category.id + '@' + p.product_code
+                // option.value = category.id + '@' + p.product_code
+                option.value = category.id + '@' + p.id
                 // option.value = category.id + product.product_name
                 // option.value = p.product_code
                 select.append(option)
@@ -248,7 +253,25 @@
         var name = $('#buyer_name').val()
         var phone = $('#buyer_phone').val()
         var address = $('#buyer_address').val()
-        console.log(name, phone, address)
+        var order = $('#root').find('select')
+        var payload = {
+            buyer_name: name,
+            buyer_address: address,
+            buyer_phone: phone,
+            order: []
+        }
+        $(order).each(function(index, value) {
+            splitProduct = $(value).val().split('@')
+            // var splitProduct = e.target.value.split('@')
+            var idProduct = splitProduct[1]
+            var jumlah = $(e.target).parent().parent().find('[name="jumlah"]')
+            if (idProduct !== undefined) {
+                payload.order.push({ product_id: idProduct, amount: jumlah.val() })
+            }
+            // console.log($(value).val())
+        })
+        console.log(payload)
+        // console.log(order)
     })
     // var root = $('#root');
 

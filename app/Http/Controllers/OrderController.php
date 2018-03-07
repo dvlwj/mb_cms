@@ -27,6 +27,10 @@ class OrderController extends Controller
         return response()->json($products);
     }
 
+    public function JSONStore(){
+        //ini ajax buat simpan
+    }
+
     public function index()
     {
         $products = Products::all();
