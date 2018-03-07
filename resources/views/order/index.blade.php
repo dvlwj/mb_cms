@@ -10,7 +10,8 @@
             {{$message}}
         </div>
         @endif
-        <form class="form-horizontal" action="{{ route('order.store') }}" method="post" enctype="multipart/form-data" >
+        {{--  <form class="form-horizontal" action="{{ route('order.store') }}" method="post" enctype="multipart/form-data" >  --}}
+        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
             <div class="panel panel-default">
                 <div class="panel-body">
                     {{ csrf_field() }}
@@ -130,6 +131,7 @@
         function handleChangeProduct(e) {
             // console.log(e.target)
             // console.log(e.target.value)
+            $(e.target).find('[value=""]').prop("disabled", true)
             var harga = $(e.target).parent().parent().find('[name="harga"]')
             var totalHarga = $(e.target).parent().parent().find('[name="total_harga"]')
             var jumlah = $(e.target).parent().parent().find('[name="jumlah"]')
@@ -239,6 +241,14 @@
             col3.append(totalharga)
             root.append(div)
         })
+    })
+    var submit = $('button[type="submit"]')
+    submit.on('click', function(e) {
+        e.preventDefault()
+        var name = $('#buyer_name').val()
+        var phone = $('#buyer_phone').val()
+        var address = $('#buyer_address').val()
+        console.log(name, phone, address)
     })
     // var root = $('#root');
 

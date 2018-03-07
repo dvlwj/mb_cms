@@ -110,7 +110,9 @@ class OrderController extends Controller
         // }
         // dd($r);
         // \DB::table('transaction_data')->insert($a1);
-
+        var_dump($_POST);
+        die;
+        // die(file_get_contents("php://input"));
         die(json_encode($request->all()));
         foreach($request as $key => $value){
             $map = 
