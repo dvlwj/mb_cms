@@ -40,7 +40,7 @@ Route::group(['prefix' => 'json'],function() {
 	// Route::get('/category/{id}','OrderController@index2');
 	Route::get('/category', 'OrderController@JSONCategory')->name('json/category');
 	Route::get('/product','OrderController@JSONProduct')->name('json/product');
-	Route::get('/store','OrderController@JSONStore')->name('json/store');
+	Route::post('/store','OrderController@JSONStore')->name('json/store');
 });
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
