@@ -270,6 +270,21 @@
             }
             // console.log($(value).val())
         })
+        $.ajax({
+            method: 'POST',
+            beforeSend: function(request) {
+                request.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr('content'));
+            },
+            url: '{{route("json/store")}}',
+            data:  JSON.stringify(payload),
+            success: function(response){
+                console.log(response); 
+            },
+            // error: function(jqXHR, textStatus, errorThrown) {
+            //     console.log(JSON.stringify(jqXHR));
+            //     console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+            // }
+        })
         console.log(payload)
         // console.log(order)
     })

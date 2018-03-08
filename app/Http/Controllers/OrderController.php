@@ -27,9 +27,38 @@ class OrderController extends Controller
         return response()->json($products);
     }
 
-    public function JSONStore(){
-        //ini ajax buat simpan
+    public function JSONStore(Request $request)
+    {
+        // dd($request);
+        // $request= $_POST['json'];
+        $json = $request->all();
+
+        $array = json_encode($json);
+        // echo '<pre>';
+        // print_r($array);
+        // echo '</pre>';
+
+        foreach ($array as $item) {
+            $nama = $item['buyer_name'];
+            $alamat = $item['buyer_address'];
+            $telepon = $item['buyer_phone'];
+            $pesanan = $item['order'];
+            foreach ( $pesanan as $item2 ) {
+                $namaitem = $item2['product_id'];
+            }
+        }
+        // if ($request->ajax()) {
+        //     dd($request);
+        // }
+        
+        // $data = $request->all();
+        // var_dump($data);
+        // print_r(json_decode($data,TRUE));
+        // die;
+        // dd(json_decode($data, TRUE));
+        // dd($request->ajax());
     }
+        //ini ajax buat simpan
 
     public function index()
     {
