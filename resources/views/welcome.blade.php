@@ -65,3 +65,14 @@
     </div>
 </div>
 @endsection
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function(){
+        activaTab('kategori1');
+    });
+
+    function activaTab(tab){
+        $('.nav-pills a[href="#' + tab + '"]').tab('show');
+    };
+</script>
+@endsection

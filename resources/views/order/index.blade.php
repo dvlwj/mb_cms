@@ -261,9 +261,10 @@
             buyer_phone: phone,
             order: []
         }
-        if (name == null || phone == null && address || null) {
-            alert("Harap isi identitas pemesan")
-        }
+        if (name == "" || phone == "" || address == "") {
+            toastr.warning("Harap isi identitas pemesan dengan lengkap")
+            return false
+        }        
         $(order).each(function(index, value) {
             splitProduct = $(value).val().split('@')
             // var splitProduct = e.target.value.split('@')
@@ -274,6 +275,10 @@
             }
             // console.log($(value).val())
         })
+        if (payload.order.length <= 0 ) {
+            toastr.warning("Harap isi produk yang dipesan")
+            return false
+        }
         $.ajax({
             method: 'POST',
             beforeSend: function(request) {
@@ -283,12 +288,23 @@
             // data:  JSON.stringify(payload),
             data:  payload,
             success: function(response){
+                console.log(response)
+                setTimeout(function () {
+                    toastr.success('Pesanan berhasil ditambahkan !')
+                    toastr.success('Halaman akan direfresh dalam beberapa detik !')
+                }, 100);
+                setTimeout(function() {
+                    localStorage.setItem('kode_pesanan', response)
+                    window.location.replace("{{route('ordersuccess')}}")
+                    // location.reload();
+                },2000);
                 // console.log(response);
             },
-            // error: function(jqXHR, textStatus, errorThrown) {
-            //     console.log(JSON.stringify(jqXHR));
-            //     console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-            // }
+            error: function(jqXHR, textStatus, errorThrown) {
+                // toastr.warning(JSON.stringify(jqXHR));
+                toastr.warning("Terjadi Error, Pastikan anda mengisi data dengan baik dan benar");
+                toastr.error("AJAX error: " + textStatus + ' : ' + errorThrown);
+            }
         })
         console.log(payload)
         // console.log(order)

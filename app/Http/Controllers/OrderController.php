@@ -40,7 +40,7 @@ class OrderController extends Controller
         // dd($request);
         // $request= $_POST['json'];
         $json = $request->all();
-        print_r($json);
+        // print_r($json);
         $nama = $json['buyer_name'];
         $alamat = $json['buyer_address'];
         $telepon = $json['buyer_phone'];
@@ -62,7 +62,8 @@ class OrderController extends Controller
             $perintahdb2 = "INSERT INTO $tbltransaksidata (transaction_id,product_id,amount,created_at) VALUES ('$transaction_id','$namaitem','$amount','" . date('Y-m-d H:i:s') . "') ";
             $sqlquery2 = @mysqli_query( $connect_db,$perintahdb2 );
         }
-        return redirect()->route('order.index')->with('message','Pesanan berhasil ditambahkan !');
+        return $generatecode;
+        // return redirect()->route('order.success')->with('message','Pesanan berhasil ditambahkan ! \n Kode Pesanan anda adalah ' .$generatecode );
     }
 
     public function index()
