@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Categories;
 use App\Products;
-use App\Order;
+use App\Transaction;
+use App\Transaction_data;
 use Auth;
 use DB;
 
@@ -91,10 +92,23 @@ class OrderController extends Controller
         return view('order.check');
     }
 
-    public function process_check($purchase_order_code)
+    public function checkorder(Request $request)
     {
-        $order = transaction::findOrFail($purchase_order_code);
-        return redirect()->route('order.check_result')->with('message', 'Data Pesanan Anda');
+        // $order = Transaction::where('purchase_order_code', $purchase_order_code)->get();
+        // $order = Transaction::findOrFail($purchase_order_code);
+        return redirect()->route('process_check_order',$request);
+    }
+
+    public function process_check(Request $request)
+    {
+        $transaction = Transaction::findOrFail($request);
+        $transaction_data = Transaction_data::all();
+        dd($request);
+        return view('process_check_order', [
+            'transaction' => $transaction,
+            'transaction_data' => $transaction_data
+        ]);
+        // return redirect()->route('order.check_result')->with('message', 'Data Pesanan Anda');
     }
 
     /**

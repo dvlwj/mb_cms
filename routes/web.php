@@ -25,7 +25,8 @@ Route::group(['prefix'],function(){
 	Route::get('ordersuccess',function(){return view('order.success');})->name('ordersuccess');
 	Route::get('search','WelcomeController@search')->name('welcomesearch');
 	Route::get('check_order','OrderController@check')->name('check_order');
-	Route::post('process_check_order/{purchace_order_code}','OrderController@process_check')->name('process_check_order');
+	Route::get('checkorder','OrderController@checkorder')->name('checkorder');
+	Route::get('process_check_order/{purchace_order_code}','OrderController@process_check')->name('process_check_order');
 });
 // Route::get('order','OrderController@index')->name('order');
 // Route::get('check_order','OrderController@check')->name('check_order');

@@ -7,7 +7,7 @@ use User;
 use Categories;
 use Products;
 
-class Order extends Model
+class Transaction extends Model
 {
     protected $fillable = ['buyer_name','buyer_address','buyer_phone'];
 
@@ -17,9 +17,4 @@ class Order extends Model
     {
         return $this->belongsTo('App\Products','products');
     }
-}
-
-class Transaction_data extends Model
-{
-    protected $table = 'transaction_data';
 }

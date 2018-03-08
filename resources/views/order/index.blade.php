@@ -37,7 +37,7 @@
                                 <div class="form-group {{ $errors->has('buyer_phone') ? 'has-error' : '' }}">
                                     <label class="control-label col-md-4" for="buyer_phone">Nomor Telepon :</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="buyer_phone" name="buyer_phone" placeholder="Nomor Telepon" required>
+                                        <input type="text" class="form-control" id="buyer_phone" name="buyer_phone" placeholder="Nomor Telepon" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                     </div>
                                 </div>
                             </div>
