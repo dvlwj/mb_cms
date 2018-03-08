@@ -96,17 +96,36 @@ class OrderController extends Controller
     {
         // $order = Transaction::where('purchase_order_code', $purchase_order_code)->get();
         // $order = Transaction::findOrFail($purchase_order_code);
-        return redirect()->route('process_check_order',$request);
+        $code = $request->code;
+        return redirect('/process_check_order/'.$code);
     }
 
-    public function process_check(Request $request)
-    {
-        $transaction = Transaction::findOrFail($request);
-        $transaction_data = Transaction_data::all();
-        dd($request);
+    public function process_check(Request $request,$code)
+    {   
+
+        // cara 1 balikin 2 array
+        $transaction = Transaction::join('transaction_data', function($join){
+                                    $join->on('transaction.transaction_id','=','transaction_data.transaction_id');
+                                })
+                                ->join('products', function($join){
+                                    $join->on('transaction_data.product_id','=','products.id');
+                                })
+                                ->where('purchase_order_code',$code)
+                                ->get();
+        
+        // cara 2
+        $header = Transaction::where('purchase_order_code',$code)->first();
+        $detail =Transaction_data::join('products', function($join){
+                                    $join->on('transaction_data.product_id','=','products.id');
+                                })
+                                ->where('transaction_data.transaction_id',$header->transaction_id)
+                                ->get();
+        
+        $transaction = (object) ["header" => $header,
+                                            "detail" => $detail];
+                                            
         return view('process_check_order', [
-            'transaction' => $transaction,
-            'transaction_data' => $transaction_data
+            'transaction' => $transaction
         ]);
         // return redirect()->route('order.check_result')->with('message', 'Data Pesanan Anda');
     }

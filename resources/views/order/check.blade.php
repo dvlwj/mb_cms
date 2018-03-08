@@ -12,7 +12,7 @@
         @endif
         <div class="panel panel-default">
             <div class="panel-body">
-                <form class="form-horizontal" action="{{route('checkorder')}}" method="post">
+                <form class="form-horizontal" action="{{route('checkorder')}}" method="post" target="_blank">
                     {{ csrf_field() }}
                     <div class="form-group {{ $errors->has('code') ? 'has-error' : '' }}">
                         <div class="col-md-12">
