@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Model;
 use App\Categories;
 use App\Products;
+use App\Order;
+use Auth;
 use DB;
 
 class OrderController extends Controller
@@ -27,43 +30,47 @@ class OrderController extends Controller
         return response()->json($products);
     }
 
+    private function generatePurchaseOrderCode()
+    {
+        return time();
+    }
+
     public function JSONStore(Request $request)
     {
         // dd($request);
         // $request= $_POST['json'];
         $json = $request->all();
-
-        $array = json_encode($json);
-        // echo '<pre>';
-        // print_r($array);
-        // echo '</pre>';
-
-        foreach ($array as $item) {
-            $nama = $item['buyer_name'];
-            $alamat = $item['buyer_address'];
-            $telepon = $item['buyer_phone'];
-            $pesanan = $item['order'];
-            foreach ( $pesanan as $item2 ) {
-                $namaitem = $item2['product_id'];
-            }
+        print_r($json);
+        $nama = $json['buyer_name'];
+        $alamat = $json['buyer_address'];
+        $telepon = $json['buyer_phone'];
+        $tbltransaksi = "transaction";
+        $tbltransaksidata = "transaction_data";
+        $generatecode = "";
+        $connect_db = mysqli_connect("localhost","root","","megabaut");
+        $perintahdb = "SELECT COUNT(*) AS jumlah FROM $tbltransaksi";
+        $sqlquery = @mysqli_query( $connect_db,$perintahdb );
+        $row = mysqli_fetch_array( $sqlquery, MYSQLI_ASSOC );
+        $generatecode = $row['jumlah'] . date('Ymd');
+        $perintahdb = "INSERT INTO $tbltransaksi (buyer_name,buyer_address,buyer_phone,status,purchase_order_code,created_at) VALUES ('$nama','$alamat','$telepon',1,$generatecode,'" . date('Y-m-d H:i:s') . "')";
+        $sqlquery = @mysqli_query( $connect_db,$perintahdb );
+        $transaction_id = $row['jumlah']+1;
+        $pesanan = $json['order'];
+        foreach ( $pesanan as $item2 ) {
+            $namaitem = $item2['product_id'];
+            $amount = $item2['amount'];
+            $perintahdb2 = "INSERT INTO $tbltransaksidata (transaction_id,product_id,amount,created_at) VALUES ('$transaction_id','$namaitem','$amount','" . date('Y-m-d H:i:s') . "') ";
+            $sqlquery2 = @mysqli_query( $connect_db,$perintahdb2 );
         }
-        // if ($request->ajax()) {
-        //     dd($request);
-        // }
-        
-        // $data = $request->all();
-        // var_dump($data);
-        // print_r(json_decode($data,TRUE));
-        // die;
-        // dd(json_decode($data, TRUE));
-        // dd($request->ajax());
+        return redirect()->route('order.index')->with('message','Pesanan berhasil ditambahkan !');
     }
-        //ini ajax buat simpan
 
     public function index()
     {
         $products = Products::all();
         $categories = Categories::all();
+        // $order_data = Transaction_data::all();
+
         return view('order.index',[
             'products' => $products,
             'categories' => $categories
@@ -105,10 +112,6 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    private function generatePurchaseOrderCode()
-    {
-        return time();
-    }
 
     public function store(Request $request)
     {

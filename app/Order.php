@@ -11,22 +11,15 @@ class Order extends Model
 {
     protected $fillable = ['buyer_name','buyer_address','buyer_phone'];
 
+    protected $table = 'transaction';
 
     public function product_name()
     {
         return $this->belongsTo('App\Products','products');
     }
-    // public function 
-    // public function product_category()
-    // {
-    //     return $this->belongsTo('App\Categories','categories');
-    // }
-    // public function creator()
-    // {
-    //     return $this->belongsTo('App\User','created_by');
-    // }
-    // public function updater()
-    // {
-    //     return $this->belongsTo('App\User','updated_by');
-    // }
+}
+
+class Transaction_data extends Model
+{
+    protected $table = 'transaction_data';
 }

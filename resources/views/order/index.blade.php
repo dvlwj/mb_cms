@@ -250,6 +250,7 @@
     var submit = $('button[type="submit"]')
     submit.on('click', function(e) {
         e.preventDefault()
+
         var name = $('#buyer_name').val()
         var phone = $('#buyer_phone').val()
         var address = $('#buyer_address').val()
@@ -259,6 +260,9 @@
             buyer_address: address,
             buyer_phone: phone,
             order: []
+        }
+        if (name == null || phone == null && address || null) {
+            alert("Harap isi identitas pemesan")
         }
         $(order).each(function(index, value) {
             splitProduct = $(value).val().split('@')
@@ -276,7 +280,8 @@
                 request.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr('content'));
             },
             url: '{{route("json/store")}}',
-            data:  JSON.stringify(payload),
+            // data:  JSON.stringify(payload),
+            data:  payload,
             success: function(response){
                 console.log(response); 
             },
@@ -288,48 +293,5 @@
         console.log(payload)
         // console.log(order)
     })
-    // var root = $('#root');
-
-    // $.get("{{route('json/category')}}", function(resp) {
-    // categories = resp;
-    // console.log(resp);
-    // });
-
-    // $.get("{{route('json/product')}}", function(resp) {
-    // products = resp
-    // console.log(resp)
-    // });
-</script>
-<script>
-    // function sumDomArray(dom){
-    //     var ii = 0, sum = 0, chunk;
-    //     for(;ii<dom.length;) {
-    //         chunk = parseInt(dom[ii++].value);
-    //         sum += isNaN(chunk) ? 0 : chunk;
-    //     }
-    //     return sum;
-    // }
-    // @foreach ($categories as $category)
-    // document.getElementById('{{$category->id}}/kategori').addEventListener('change', function () {
-    //     var category = document.getElementById('{{$category->id}}/kategori');
-    //     var price = document.getElementById('{{$category->id}}/price');
-    //     var number = document.getElementById('{{$category->id}}/amount');
-    //     var totalprice = document.getElementById('{{$category->id}}/totalprice');
-    //     var totalbill = document.getElementById('totalbill');
-    //     price.value = category.value.split('|')[1];
-    //     totalprice.value = price.value * number.value;
-    //     totalbill.value = sumDomArray(document.getElementsByClassName('totalprice'));
-    // });
-    // document.getElementById('{{$category->id}}/amount').addEventListener('change', function () {
-    //     var category = document.getElementById('{{ $category-> id }}/kategori');
-    //     var price = document.getElementById('{{ $category-> id }}/price');
-    //     var number = document.getElementById('{{ $category-> id }}/amount');
-    //     var totalprice = document.getElementById('{{ $category-> id }}/totalprice');
-    //     var totalbill = document.getElementById('totalbill');
-    //     price.value = category.value.split('|')[1];
-    //     totalprice.value = price.value * number.value;
-    //     totalbill.value = sumDomArray(document.getElementsByClassName('totalprice'));
-    // });
-    // @endforeach
 </script>
 @endsection
