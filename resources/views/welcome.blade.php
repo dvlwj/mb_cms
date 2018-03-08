@@ -13,9 +13,9 @@
     </div>
     <div class="row" style="margin-bottom:1em;">
         <div class="col-md-12">
-            <form autocomplete="off" class="form-horizontal" role="search">
+            <form autocomplete="off" class="form-horizontal" role="search" action="{{route('welcomesearch')}}">
                 <div class="input-group input-group-lg">
-                    <input name="searchtext" placeholder="Cari Produk" class="form-control" type="text">
+                    <input name="searchtext" placeholder="Cari Produk" class="form-control" type="text" id="searchbar">
                     <span class="input-group-btn">
                         <button class="btn btn-primary" type="submit" id="SearchButton">
                             <span class="fa fa-fw fa-search"></span>

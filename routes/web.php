@@ -22,6 +22,7 @@ Route::get('showproducts/{id}', 'WelcomeController@show')->name('showproducts');
 
 Route::group(['prefix'],function(){
 	Route::resource('order','OrderController');
+	Route::get('search','WelcomeController@search')->name('welcomesearch');
 	Route::get('check_order','OrderController@check')->name('check_order');
 	Route::post('process_check_order/{purchace_order_code}','OrderController@process_check')->name('process_check_order');
 });

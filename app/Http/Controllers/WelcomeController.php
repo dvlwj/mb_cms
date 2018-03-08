@@ -20,6 +20,17 @@ class WelcomeController extends Controller
         ]);
     }
 
+    public function search(Request $request)
+    {
+        $search = $request['searchbar'];
+        $products = Products::where('product_name','like', '%'.$search.'%')->orderBy('product_name','ASC');
+        $categories = Categories::all();
+        return view('welcome',[
+            'products' => $products,
+            'categories' => $categories
+        ]);
+    }
+
     public function show($id)
     {
         $products = Products::findOrFail($id);
