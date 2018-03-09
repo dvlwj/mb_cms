@@ -37,6 +37,7 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'],function() {
 	Route::resource('categories', 'CategoriesController');
 	Route::resource('products', 'ProductsController');
 	Route::resource('users', 'UsersController');
+	Route::resource('confirm', 'KonfirmasiController');
 });
 
 Route::group(['prefix' => 'json'],function() {
