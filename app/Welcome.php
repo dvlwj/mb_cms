@@ -7,6 +7,8 @@ use Categories;
 
 class Welcome extends Model
 {
+    protected $table = 'categories';
+
     public function categorier()
     {
         return $this->belongsTo('App\Categories','category');

@@ -15,7 +15,7 @@ class Products extends Model
 
     public function categorier()
     {
-        return $this->belongsTo('App\Categories','category');
+        return $this->belongsTo('App\Categories','category_id');
     }
 
     public function creator()

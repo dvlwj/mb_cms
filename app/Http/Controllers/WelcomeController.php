@@ -39,9 +39,15 @@ class WelcomeController extends Controller
 
     public function show($id)
     {
+        // dd($id);
         $products = Products::findOrFail($id);
+        $categories = Products::find($id)->categorier;
+        // dd($products);
         // $categories = Categories::all();
-        $categories = Categories::findOrFail($id);
+        // $categories = Categories::findOrFail($id);
+        // $categories = Products::find($id)->categorier;
+        // dd($products);
+        // $products = Products::with('category')->findOrFail($id);
         return view('showproducts', [
             'products'=>$products,
             'categories' => $categories
