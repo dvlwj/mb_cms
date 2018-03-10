@@ -9,6 +9,10 @@ table tbody tr td {
     vertical-align: middle !important;
 }
 
+.panel {
+    margin-bottom: 5em !important;
+}
+
 .panel-body {
     overflow: auto;
 }

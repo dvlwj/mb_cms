@@ -62,7 +62,7 @@
                             @else
                             <td class="text-center">-</td>
                             @endif
-                            @if($product->updator!=null)
+                            @if($product->updater!=null)
                             <td class="text-center">{{$product->updater->username}}</td>
                             @else
                             <td class="text-center">-</td>

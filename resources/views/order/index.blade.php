@@ -29,7 +29,7 @@
                                 <div class="form-group {{ $errors->has('buyer_name') ? 'has-error' : '' }}">
                                     <label class="control-label col-md-4" for="buyer_name">Nama Pembeli :</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="buyer_name" name="buyer_name" placeholder="Nama Pengirim" autofocus required>
+                                        <input type="text" class="form-control" id="buyer_name" name="buyer_name" placeholder="Nama Pembeli" autofocus required>
                                     </div>
                                 </div>
                             </div>

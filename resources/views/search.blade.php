@@ -50,6 +50,9 @@
                     </div>
                 </div>
             </div>
+            <div class="well well-kembali" onclick="window.history.back();">
+                <div class="text-center"><h4><i class="fa fa-fw fa-chevron-left"></i>Kembali</h4></div>
+            </div>
         </div>
     </div>
 </div>

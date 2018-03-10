@@ -60,11 +60,15 @@
                                     <input type="number" class="form-control totalprice" id="{{$detail->id}}/totalprice" name="{{$detail->id}}/totalprice" placeholder="Total Harga" readonly>
                                 </div>
                             </div>
-                            <div class="col-md-12" style="margin: 1em 0;">
-                                <input type="number" class="form-control" id="totalbill" name="totalbill" placeholder="Total Harga Pesanan" disabled>
-                            </div>
                         </div>
                         @endforeach
+                        <div class="row">
+                            <div class="center-block">
+                                <div class="col-md-12" style="margin: 1em 0;">
+                                    <input type="number" class="form-control" id="totalbill" name="totalbill" placeholder="Total Harga Pesanan" disabled>
+                                </div>
+                            </div>
+                        </div>
                     @endif
                 </div>
             </div>
