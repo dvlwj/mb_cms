@@ -39,7 +39,7 @@
                     <tbody>
                         <?php $no=1; ?>
                         @foreach($confirm as $confirmed)
-                        <tr onclick="window.location='{{route('process_check_order', $confirmed->purchase_order_code)}}';">
+                        <tr onclick="window.location='{{route('process_check_order', $confirmed->purchase_order_code)}}';" style="cursor: pointer">
                             {{--  <a href="{{route('process_check_order', $confirmed->purchase_order_code)}}">  --}}
                                 <td class="text-center">{{$no++}}</td>
                                 <td class="text-center">{{$confirmed->buyer_name}}</td>
@@ -54,14 +54,15 @@
                                 @endif
                                 <td class="text-center">{{date('H:i:s d-m-Y', strtotime($confirmed->updated_at))}}</td>
                                 <td class="text-center" width="8%">
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <form action="{{ route('products.destroy', $confirmed->id) }}" method="post">
+                                    {{--  <div class="btn-group" role="group" aria-label="Basic example">  --}}
+                                        {{--  <form action="{{ route('confirm.reject', $confirmed->transaction_id) }}" method="post">
                                             {{csrf_field()}}
-                                            {{ method_field('DELETE') }}
-                                            <a href="{{ route('products.edit', $confirmed->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-faw fa-pencil"></i></a>
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
-                                        </form>
-                                    </div>
+                                            {{ method_field('DELETE') }}  --}}
+                                            <a href="{{ route('confirm.accept', $confirmed->transaction_id) }}" class="btn btn-primary btn-sm"><i class="fa fa-faw fa-check"></i></a>
+                                            <a href="{{ route('confirm.reject', $confirmed->transaction_id) }}" class="btn btn-danger btn-sm"><i class="fa fa-faw fa-times"></i></a>
+                                            {{--  <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-times"></i></button>  --}}
+                                        {{--  </form>  --}}
+                                    {{--  </div>  --}}
                                 </td>
                             {{--  </a>  --}}
                         </tr>
@@ -73,9 +74,9 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-6 text-left">
-                            <a href="{{route('products.create')}}" class="pagination btn btn-primary">
+                            {{--  <a href="{{route('products.create')}}" class="pagination btn btn-primary">
                                 <i class="fa fa-fw fa-plus"></i>Tambah Data
-                            </a>
+                            </a>  --}}
                         </div>
                         <div class="col-md-6 text-right">
                             {{$confirm->links()}}

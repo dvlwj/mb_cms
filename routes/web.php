@@ -38,6 +38,8 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'],function() {
 	Route::resource('products', 'ProductsController');
 	Route::resource('users', 'UsersController');
 	Route::resource('confirm', 'KonfirmasiController');
+	Route::get('confirm/accept/{transaction_id}','KonfirmasiController@accept')->name('confirm.accept');
+	Route::get('confirm/reject/{transaction_id}','KonfirmasiController@reject')->name('confirm.reject');
 });
 
 Route::group(['prefix' => 'json'],function() {

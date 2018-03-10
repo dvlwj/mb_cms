@@ -17,14 +17,15 @@
         <div class="col-md-8">
             @if ($transaction->detail)
                 <div class="row">
-                    <div class="col-md-4">Product ID</div>
                     <div class="col-md-4">Name</div>
+                    <div class="col-md-4">Harga</div>
                     <div class="col-md-4">Amount</div>
                 </div>
                 @foreach ($transaction->detail as $detail)
                 <div class="row">
-                    <div class="col-md-4">{{$detail->product_id}}</div>
+                    {{--  <div class="col-md-4">{{$detail->product_id}}</div>  --}}
                     <div class="col-md-4">{{$detail->product_name}}</div>
+                    <div class="col-md-4">{{$detail->price}}</div>
                     <div class="col-md-4">{{$detail->amount}}</div>
                 </div>
                 @endforeach

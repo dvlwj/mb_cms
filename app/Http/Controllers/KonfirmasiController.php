@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Konfirmasi;
 use App\User;
 use Auth;
+use DB;
 
 
 class KonfirmasiController extends Controller
@@ -72,9 +73,28 @@ class KonfirmasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function accept($id)
+    {
+        $confirm  = array(
+            'status' => 2
+        );
+        DB::table('transaction')->where('transaction_id',$id)->update($confirm);
+        return redirect()->route('confirm.index')->with('message', 'Pesanan berhasil diterima !');
+    }
+
+    public function reject($id)
+    {
+        $confirm  = array(
+            'status' => 3
+        );
+        DB::table('transaction')->where('transaction_id',$id)->update($confirm);
+        return redirect()->route('confirm.index')->with('message', 'Pesanan berhasil ditolak !');
+    }
+
     public function update(Request $request, $id)
     {
-        //
+        // 
     }
 
     /**
@@ -85,6 +105,6 @@ class KonfirmasiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // 
     }
 }
