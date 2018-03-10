@@ -60,3 +60,18 @@ table tbody tr td {
 .card .foot .btn:hover {
     color: #004d73;
 }
+
+.defaulta, .defaulta:hover {
+    cursor: default !important;
+    text-decoration: none !important; 
+    text-decoration-color: #000 !important;
+    color: #5e5e64 !important;
+}
+
+.well-kembali{
+    margin-bottom: 5em !important;
+    background-color: #f8f8f8;
+}
+.well-kembali:hover{
+    cursor: pointer !important;
+}
