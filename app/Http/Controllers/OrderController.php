@@ -52,7 +52,7 @@ class OrderController extends Controller
         $perintahdb = "SELECT COUNT(*) AS jumlah FROM $tbltransaksi";
         $sqlquery = @mysqli_query( $connect_db,$perintahdb );
         $row = mysqli_fetch_array( $sqlquery, MYSQLI_ASSOC );
-        $generatecode = $row['jumlah'] . date('Ymd');
+        $generatecode = $row['jumlah']+1 . date('Ymd');
         $perintahdb = "INSERT INTO $tbltransaksi (buyer_name,buyer_address,buyer_phone,status,purchase_order_code,created_at) VALUES ('$nama','$alamat','$telepon',1,$generatecode,'" . date('Y-m-d H:i:s') . "')";
         $sqlquery = @mysqli_query( $connect_db,$perintahdb );
         $transaction_id = $row['jumlah']+1;
