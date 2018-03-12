@@ -47,12 +47,16 @@
                                 <td class="text-center">{{$confirmed->buyer_phone}}</td>
                                 <td class="text-center">{{$confirmed->purchase_order_code}}</td>
                                 <td class="text-center">{{$confirmed->status}}</td>
-                                @if($confirmed->updator!=null)
+                                @if($confirmed->updater!=null)
                                 <td class="text-center">{{$confirmed->updater->username}}</td>
                                 @else
                                 <td class="text-center">-</td>
                                 @endif
+                                @if($confirmed->updated_at!=null)
                                 <td class="text-center">{{date('H:i:s d-m-Y', strtotime($confirmed->updated_at))}}</td>
+                                @else
+                                <td class="text-center">-</td>
+                                @endif
                                 <td class="text-center" width="8%">
                                     {{--  <div class="btn-group" role="group" aria-label="Basic example">  --}}
                                         {{--  <form action="{{ route('confirm.reject', $confirmed->transaction_id) }}" method="post">

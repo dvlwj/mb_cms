@@ -13,6 +13,13 @@
         {{--  <form class="form-horizontal" action="{{ route('order.store') }}" method="post" enctype="multipart/form-data" >  --}}
         <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
             <div class="panel panel-default">
+                <div class="col-md-12">
+                    <legend><h1>Pemesanan</h1></legend>
+                    {{--  <div class="col-md-6">
+                        <h1>Pemesanan</h1>
+                    </div>
+                    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />  --}}
+                </div>
                 <div class="panel-body">
                     {{ csrf_field() }}
                     <div class="form-group {{ $errors->has('category_id') ? 'has-error' : '' }}">

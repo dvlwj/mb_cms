@@ -47,7 +47,7 @@
                     @endif
                 </div>
                 <div class="panel-footer">
-                    <button type="submit" class="btn btn-primary" style="width:100%">Simpan</button>
+                    <button type="submit" class="btn btn-primary" style="width:100%"><i class="fa fa-fw fa-check"></i> Simpan</button>
                 </div>
             </form>
         </div>

@@ -26,8 +26,17 @@
             <form class="form-horizontal" action="{{ route('users.store') }}" method="post">
                 <div class="panel-body">
                     {{ csrf_field() }}
+                    <div class="form-group {{ $errors->has('userlevel') ? 'has-error' : '' }}">
+                        <label class="control-label col-md-2" for="userlevel">Level Pengguna :</label>
+                        <div class="col-md-6">                            
+                            <select class="form-control" id="userlevel" name="userlevel" required>
+                                    <option value="1">Admin</option>
+                                    <option value="2">Pegawai</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                        <label class="control-label col-md-2" for="name">Nama :</label>
+                        <label class="control-label col-md-2" for="name">Nama Pengguna :</label>
                         <div class="col-md-6">
                             <input type="text" class="form-control" id="name" name="name" placeholder="Nama User" autofocus required>
                         </div>
@@ -36,15 +45,6 @@
                         <label class="control-label col-md-2" for="username">Username :</label>
                         <div class="col-md-6">
                             <input type="text" class="form-control" id="username" name="username" placeholder="Username User" required>
-                        </div>
-                    </div>
-                    <div class="form-group {{ $errors->has('userlevel') ? 'has-error' : '' }}">
-                        <label class="control-label col-md-2" for="userlevel">Userlevel :</label>
-                        <div class="col-md-6">                            
-                            <select class="form-control" id="userlevel" name="userlevel" required>
-                                    <option value="1">Admin</option>
-                                    <option value="2">Pegawai</option>
-                            </select>
                         </div>
                     </div>
                     <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">

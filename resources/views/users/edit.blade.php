@@ -27,8 +27,17 @@
                 <div class="panel-body">
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
+                    <div class="form-group {{ $errors->has('userlevel') ? 'has-error' : '' }}">
+                        <label class="control-label col-md-2" for="userlevel">Level Pengguna :</label>
+                        <div class="col-md-6">                            
+                            <select class="form-control" id="userlevel" name="userlevel" autofocus required>
+                                    <option value="1" {{ old('userlevel', $users->userlevel) == 'admin' ? 'selected' : '' }}>Admin</option>
+                                    <option value="2" {{ old('userlevel', $users->userlevel) == 'pegawai' ? 'selected' : '' }}>Pegawai</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                        <label class="control-label col-md-2" for="name">Nama :</label>
+                        <label class="control-label col-md-2" for="name">Nama Pengguna :</label>
                         <div class="col-md-6">
                             <input type="text" class="form-control" id="name" name="name" value="{{ $users->name }}" placeholder="Nama User" disabled>
                         </div>
@@ -37,15 +46,6 @@
                         <label class="control-label col-md-2" for="username">Username :</label>
                         <div class="col-md-6">
                             <input type="text" class="form-control" id="username" name="username" value="{{ $users->username }}" placeholder="Username User" disabled>
-                        </div>
-                    </div>
-                    <div class="form-group {{ $errors->has('userlevel') ? 'has-error' : '' }}">
-                        <label class="control-label col-md-2" for="userlevel">Userlevel :</label>
-                        <div class="col-md-6">                            
-                            <select class="form-control" id="userlevel" name="userlevel" autofocus required>
-                                    <option value="1" {{ old('userlevel', $users->userlevel) == 'admin' ? 'selected' : '' }}>Admin</option>
-                                    <option value="2" {{ old('userlevel', $users->userlevel) == 'pegawai' ? 'selected' : '' }}>Pegawai</option>
-                            </select>
                         </div>
                     </div>
                     <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">

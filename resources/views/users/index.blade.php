@@ -57,7 +57,11 @@
                             <td class="text-center">-</td>
                             @endif
                             <td class="text-center">{{date('H:i:s d-m-Y', strtotime($user->created_at))}}</td>
+                            @if ($user->updated_at!=null)
                             <td class="text-center">{{date('H:i:s d-m-Y', strtotime($user->updated_at))}}</td>
+                            @else
+                            <td class="text-center">-</td>
+                            @endif
                             <td class="text-center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <form action="{{ route('users.destroy', $user->id) }}" method="post">

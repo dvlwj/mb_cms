@@ -7,17 +7,17 @@
                 <i class="fa fa-fw fa-close"></i>
             </a>
             <div class="text-center">
-                <p>
-                    ANDA TELAH SUKSES MEMESAN BARANG
-                </p>
-                <p>
+                <h2>Pemesanan Sukses !</h2>
+                {{--  <p>
                     PESANAN ANDA AKAN SEGERA KAMI PROSES
-                </p>
+                </p>  --}}
                 <p>
-                    <b>KODE PESANAN ANDA :</b>
+                    <h2>KODE PESANAN ANDA :</h2>
                 </p>
-                <p id="responsemessage" class="text-capitalize" style="font-weight: bold;font-size: 2em;"></p>
-                <p>Jangan lupa untuk mencatat kode pesanan anda untuk memeriksa status pesanan anda</p>
+                <div class="container" style="border: 1px solid #336699;padding: 1em;margin-top: 2em; margin-bottom: 2em;width: 50%">
+                    <h1 id="responsemessage" class="text-capitalize" style="font-weight: bold;"></h1>
+                </div>
+                <p>*Jangan lupa untuk mencatat kode pesanan anda untuk memeriksa status pesanan anda</p>
             </div>
         </div>
     </div>

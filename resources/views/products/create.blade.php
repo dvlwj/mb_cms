@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         
         <ol class="breadcrumb">
@@ -115,7 +115,7 @@
                     @endif
                 </div>
                 <div class="panel-footer">
-                    <button type="submit" class="btn btn-primary" style="width:100%">Simpan</button>
+                    <button type="submit" class="btn btn-primary" style="width:100%"><i class="fa fa-fw fa-check"></i> Simpan</button>
                 </div>
             </form>
         </div>

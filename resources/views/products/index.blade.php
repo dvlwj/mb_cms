@@ -35,11 +35,11 @@
                             {{--  <th>Tinggi</th>  --}}
                             {{--  <th>Berat</th>  --}}
                             {{--  <th>Unit Satuan</th>  --}}
-                            <th>Di Buat oleh</th>
-                            <th>Di Perbarui oleh</th>
-                            <th>Tanggal Buat</th>
-                            <th>Tanggal Update</th>
-                            <th>Gambar</th>
+                            <th>Dibuat oleh</th>
+                            <th>Diedit oleh</th>
+                            <th>Dibuat</th>
+                            <th>Diedit</th>
+                            {{--  <th>Gambar</th>  --}}
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -69,9 +69,9 @@
                             @endif
                             <td class="text-center">{{date('H:i:s d-m-Y', strtotime($product->created_at))}}</td>
                             <td class="text-center">{{date('H:i:s d-m-Y', strtotime($product->updated_at))}}</td>
-                            <td>
+                            {{--  <td>
                                 <img src="../{{Storage::url('assets/uploads/').$product->picture}}" class="img-responsive center-block" alt="{{$product->picture}}" width="100"></img>
-                            </td>
+                            </td>  --}}
                             <td class="text-center" width="8%">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <form action="{{ route('products.destroy', $product->id) }}" method="post">

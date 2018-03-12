@@ -8,6 +8,7 @@ use App\Konfirmasi;
 use App\User;
 use Auth;
 use DB;
+use Carbon;
 
 
 class KonfirmasiController extends Controller
@@ -77,8 +78,11 @@ class KonfirmasiController extends Controller
     public function accept($id)
     {
         $confirm  = array(
-            'status' => 2
+            'status' => 2,
+            'updated_by' => Auth::user()->id,
+            'updated_at' => Carbon::now()
         );
+        // dd($confirm);
         DB::table('transaction')->where('transaction_id',$id)->update($confirm);
         return redirect()->route('confirm.index')->with('message', 'Pesanan berhasil diterima !');
     }
@@ -86,7 +90,9 @@ class KonfirmasiController extends Controller
     public function reject($id)
     {
         $confirm  = array(
-            'status' => 3
+            'status' => 3,
+            'updated_by' => Auth::user()->id,
+            'updated_at' => Carbon::now()
         );
         DB::table('transaction')->where('transaction_id',$id)->update($confirm);
         return redirect()->route('confirm.index')->with('message', 'Pesanan berhasil ditolak !');
