@@ -33,10 +33,12 @@ Route::group(['prefix'],function(){
 // Route::get('check_order','OrderController@check')->name('check_order');
 // Route::get('check_order.get','OrderController@check')->name('check_order');
 
+Route::group(['prefix' => 'admin','middleware' => 'admin'],function() {
+	Route::resource('users', 'UsersController');
+});
 Route::group(['prefix' => 'admin','middleware' => 'auth'],function() {
 	Route::resource('categories', 'CategoriesController');
 	Route::resource('products', 'ProductsController');
-	Route::resource('users', 'UsersController');
 	Route::resource('confirm', 'KonfirmasiController');
 	Route::get('confirm/accept/{transaction_id}','KonfirmasiController@accept')->name('confirm.accept');
 	Route::get('confirm/reject/{transaction_id}','KonfirmasiController@reject')->name('confirm.reject');
