@@ -35,7 +35,7 @@
                         <li><a data-toggle="pill" href="#kategori{{$category->id}}">{{$category->category_name}}</a></li>
                         @endforeach
                         @else
-                        <p>Data Kategori Kosong</p>
+                        {{Data Kategori Kosong}}
                         @endif
                     </ul>
                 </div>
@@ -64,7 +64,7 @@
                         </div>
                         @endforeach
                         @else
-                        <p>Data Produk Kosong</p>
+                        {{Data Produk Kosong}}
                         @endif
                     </div>
                 </div>
