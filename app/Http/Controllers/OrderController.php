@@ -104,25 +104,32 @@ class OrderController extends Controller
     {   
 
         // cara 1 balikin 2 array
-        $transaction = Transaction::join('transaction_data', function($join){
-                                    $join->on('transaction.transaction_id','=','transaction_data.transaction_id');
-                                })
-                                ->join('products', function($join){
-                                    $join->on('transaction_data.product_id','=','products.id');
-                                })
-                                ->where('purchase_order_code',$code)
-                                ->get();
+        // $transaction = Transaction::join('transaction_data', function($join){
+        //                             $join->on('transaction.transaction_id','=','transaction_data.transaction_id');
+        //                         })
+        //                         ->join('products', function($join){
+        //                             $join->on('transaction_data.product_id','=','products.id');
+        //                         })
+        //                         ->where('purchase_order_code',$code)
+        //                         ->get();
         
-        // cara 2
+        // if (!$detail)
+        // {
+        // }
         $header = Transaction::where('purchase_order_code',$code)->first();
-        $detail =Transaction_data::join('products', function($join){
-                                    $join->on('transaction_data.product_id','=','products.id');
-                                })
-                                ->where('transaction_data.transaction_id',$header->transaction_id)
-                                ->get();
-        
-        $transaction = (object) ["header" => $header,
-                                            "detail" => $detail];
+        // dd($header);
+        if ($header != null) {
+            $detail =Transaction_data::join('products', function($join){
+                                        $join->on('transaction_data.product_id','=','products.id');
+                                    })
+                                    ->where('transaction_data.transaction_id',$header->transaction_id)
+                                    ->get();
+            $transaction = (object) ["header" => $header,
+                                                "detail" => $detail];
+        } else {
+            return redirect('check_order')->with('message', ' Pesanan tersebut tidak ditemukan !');
+        };
+
                                             
         return view('process_check_order', [
             'transaction' => $transaction
