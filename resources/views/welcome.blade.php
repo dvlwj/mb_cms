@@ -30,13 +30,18 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <ul class="nav nav-pills">
+                        @if ($categories != null)
                         @foreach ($categories as $category)
                         <li><a data-toggle="pill" href="#kategori{{$category->id}}">{{$category->category_name}}</a></li>
                         @endforeach
+                        @else
+                        <p>Data Kategori Kosong</p>
+                        @endif
                     </ul>
                 </div>
                 <div class="panel-body">
                     <div class="tab-content">
+                        @if ($products != null)
                         @foreach ($categories as $category)
                         <div id="kategori{{$category->id}}" class="tab-pane fade">
                             <div class="row">
@@ -58,6 +63,9 @@
                             </div>
                         </div>
                         @endforeach
+                        @else
+                        <p>Data Produk Kosong</p>
+                        @endif
                     </div>
                 </div>
             </div>
