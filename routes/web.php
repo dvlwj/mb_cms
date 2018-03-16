@@ -29,6 +29,7 @@ Route::group(['prefix'],function(){
 	Route::post('checkorder','OrderController@checkorder')->name('checkorder');
 	Route::get('process_check_order/{purchace_order_code}','OrderController@process_check')->name('process_check_order');
 });
+
 // Route::get('order','OrderController@index')->name('order');
 // Route::get('check_order','OrderController@check')->name('check_order');
 // Route::get('check_order.get','OrderController@check')->name('check_order');
